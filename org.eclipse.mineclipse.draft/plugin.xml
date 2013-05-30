@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.ui.decorators">
+      <decorator
+            lightweight="true"
+            location="BOTTOM_RIGHT"
+            adaptable="true"
+            label="Resource Decorator"
+            icon="icons/sample_decorator.gif"
+            state="true"
+            id="org.eclipse.mineclipse.draft.decorator">
+         <enablement>
+            <and>
+               <objectClass
+                     name="org.eclipse.core.resources.IResource">
+               </objectClass>
+               <or>
+                  <objectClass
+                        name="org.eclipse.core.resources.IProject">
+                  </objectClass>
+                  <objectClass
+                        name="org.eclipse.core.resources.IFile">
+                  </objectClass>
+               </or>
+            </and>
+         </enablement>
+      </decorator>
+   </extension>
+   <extension
+         point="org.eclipse.ui.editors">
+   </extension>
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            allowMultiple="true"
+            category="org.eclipse.mineclipse.draft"
+            class="org.eclipse.mineclipse.draft.views.FileManagerView"
+            icon="icons/file_manager.png"
+            id="org.eclipse.mineclipse.draft.views.SampleView"
+            name="MineClipse File Manager"
+            restorable="true">
+      </view>
+      <category
+            id="org.eclipse.mineclipse.draft.category"
+            name="MineClipse">
+      </category>
+      <view
+            category="org.eclipse.mineclipse.draft.category"
+            class="org.eclipse.mineclipse.draft.views.GlimpseView"
+            id="org.eclipse.mineclipse.draft.views.GlimpseView"
+            name="Glimpse">
+      </view>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension
+            targetID="org.eclipse.jdt.ui.JavaPerspective">
+         <view
+               ratio="0.5"
+               relative="org.eclipse.ui.views.ProblemView"
+               relationship="right"
+               id="org.eclipse.mineclipse.draft.views.SampleView">
+         </view>
+      </perspectiveExtension>
+   </extension>
+   <extension
+         point="org.eclipse.help.contexts">
+      <contexts
+            file="contexts.xml">
+      </contexts>
+   </extension>
+
+</plugin>
