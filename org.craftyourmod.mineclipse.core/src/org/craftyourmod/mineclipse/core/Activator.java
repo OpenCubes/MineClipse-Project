@@ -1,7 +1,5 @@
 package org.craftyourmod.mineclipse.core;
 
-import java.beans.PropertyChangeSupport;
-
 import org.craftyourmod.mineclipse.core.filemanager.FileManager;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
@@ -16,7 +14,6 @@ public class Activator extends AbstractUIPlugin {
 
 	// The shared instance
 	private static Activator plugin;
-	private static PropertyChangeSupport mineClipseSupport;
 
 	/**
 	 * The constructor
@@ -34,8 +31,8 @@ public class Activator extends AbstractUIPlugin {
 	@Override
 	public void start(final BundleContext context) throws Exception {
 		super.start(context);
+		FileManager.INSTANCE.load(getPreferenceStore());
 		plugin = this;
-		mineClipseSupport = new PropertyChangeSupport(this);
 
 	}
 
@@ -64,16 +61,6 @@ public class Activator extends AbstractUIPlugin {
 	 */
 	public static Activator getDefault() {
 		return plugin;
-	}
-
-	/**
-	 * Returns the support
-	 * 
-	 * @return support (PCS)
-	 */
-	public static PropertyChangeSupport getSupport() {
-		return mineClipseSupport;
-
 	}
 
 }

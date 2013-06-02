@@ -49,4 +49,9 @@ public class SourceFile extends BaseFile {
 				target, exclude, monitor);
 		return new SourceFile(target, name);
 	}
+
+	public static SourceFile load(final File input, final String name) {
+		return new SourceFile(input, name);
+
+	}
 }

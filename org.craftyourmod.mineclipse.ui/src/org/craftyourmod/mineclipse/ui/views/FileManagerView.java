@@ -1,5 +1,9 @@
 package org.craftyourmod.mineclipse.ui.views;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+
+import org.craftyourmod.mineclipse.core.filemanager.FileManager;
 import org.craftyourmod.mineclipse.ui.Messages;
 import org.craftyourmod.mineclipse.ui.actions.AddElementAction;
 import org.craftyourmod.mineclipse.ui.providers.FileManagerContentProvider;
@@ -43,12 +47,22 @@ public class FileManagerView extends ViewPart {
 		gl_container.marginWidth = 0;
 		container.setLayout(gl_container);
 
-		TreeViewer treeViewer = new TreeViewer(container, SWT.BORDER);
-		Tree tree = treeViewer.getTree();
+		final TreeViewer treeViewer = new TreeViewer(container, SWT.BORDER);
+		final Tree tree = treeViewer.getTree();
 		tree.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
 		treeViewer.setContentProvider(new FileManagerContentProvider());
 		treeViewer.setLabelProvider(new FileManagerLabelProvider());
 		treeViewer.setInput("ROOT");
+		FileManager.INSTANCE.getSupport().addPropertyChangeListener(
+				new PropertyChangeListener() {
+
+					@Override
+					public void propertyChange(final PropertyChangeEvent arg0) {
+						treeViewer.setInput("ROOT");
+						treeViewer.refresh();
+						tree.redraw();
+					}
+				});
 		treeViewer.refresh();
 		createActions();
 		initializeToolBar();

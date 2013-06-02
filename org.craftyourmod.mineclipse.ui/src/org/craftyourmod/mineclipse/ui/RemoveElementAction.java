@@ -8,5 +8,6 @@ public class RemoveElementAction extends Action {
 		setImageDescriptor(ResourceManager
 				.getImageDescriptor("/icons/file-delete-16x16.png"));
 		setToolTipText(Messages.RemoveElement_Tooltip);
+
 	}
 }
