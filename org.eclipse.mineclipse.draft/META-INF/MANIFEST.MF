@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Draft
-Bundle-SymbolicName: org.eclipse.mineclipse.draft; singleton:=true
+Bundle-SymbolicName: org.eclipse.mineclipse.draft;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: org.eclipse.mineclipse.draft.Activator
 Require-Bundle: org.eclipse.ui,
@@ -10,5 +10,5 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.jface.text,
  org.eclipse.ui.editors,
  org.eclipse.ui.ide
-Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Export-Package: org.eclipse.wb.swt;uses:="org.eclipse.jface.resource,org.eclipse.swt.graphics"
