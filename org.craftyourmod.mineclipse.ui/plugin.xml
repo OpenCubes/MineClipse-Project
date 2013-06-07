@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            category="org.craftyourmod.mineclipse.ui.category"
+            class="org.craftyourmod.mineclipse.ui.views.FileManagerView"
+            icon="icons/file_manager.png"
+            id="org.craftyourmod.mineclipse.ui.views.FileManagerView"
+            name="MineClipse FileManager">
+      </view>
+      <category
+            id="org.craftyourmod.mineclipse.ui.category"
+            name="Minecraft Mod Developement">
+      </category>
+   </extension>
+</plugin>
