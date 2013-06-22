@@ -2,6 +2,8 @@ package org.craftyourmod.mineclipse.core.filemanager;
 
 import java.beans.PropertyChangeSupport;
 
+import org.apache.commons.codec.digest.DigestUtils;
+
 public abstract class BaseFile {
 	/**
 	 * The state
@@ -72,6 +74,12 @@ public abstract class BaseFile {
 		return support;
 	}
 
+	public String getId() {
+
+		return new String(DigestUtils.md5Hex(getName()));
+
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -94,13 +102,15 @@ public abstract class BaseFile {
 		if (input == null) {
 			if (other.input != null)
 				return false;
-		} else if (!input.equals(other.input))
-			return false;
+		} else
+			if (!input.equals(other.input))
+				return false;
 		if (name == null) {
 			if (other.name != null)
 				return false;
-		} else if (!name.equals(other.name))
-			return false;
+		} else
+			if (!name.equals(other.name))
+				return false;
 		if (state != other.state)
 			return false;
 		return true;

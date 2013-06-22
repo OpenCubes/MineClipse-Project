@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.2"?>
 <plugin>
+   <extension-point id="org.eclipse.jdt.core.classpathContainerInitializer" name="MinecraftDependencies" schema="org.eclipse.jdt.core.classpathContainerInitializer.exsd"/>
    <extension
          point="org.eclipse.ui.views">
       <view
@@ -14,5 +15,23 @@
             id="org.craftyourmod.mineclipse.ui.category"
             name="Minecraft Mod Developement">
       </category>
+   </extension>
+   <extension
+         point="org.eclipse.ui.newWizards">
+      <category
+            id="org.craftyourmod.mineclipse.ui.category1"
+            name="Minecraft Mod Developement">
+      </category>
+      <wizard
+            category="Minecraft Mod Developement"
+            class="org.craftyourmod.mineclipse.ui.wizards.NewMinecraftProjectWorkbenchWizard"
+            icon="icons/new_pj.gif"
+            id="org.craftyourmod.mineclipse.ui.wizard2"
+            name="New MineClipse Project"
+            project="true">
+      </wizard>
+   </extension>
+   <extension
+         point="org.eclipse.jdt.core.classpathContainerInitializer">
    </extension>
 </plugin>

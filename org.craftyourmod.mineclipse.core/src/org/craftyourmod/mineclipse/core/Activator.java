@@ -1,6 +1,5 @@
 package org.craftyourmod.mineclipse.core;
 
-import org.craftyourmod.mineclipse.core.filemanager.FileManager;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
@@ -31,7 +30,6 @@ public class Activator extends AbstractUIPlugin {
 	@Override
 	public void start(final BundleContext context) throws Exception {
 		super.start(context);
-		FileManager.INSTANCE.load(getPreferenceStore());
 		plugin = this;
 
 	}
@@ -45,13 +43,12 @@ public class Activator extends AbstractUIPlugin {
 	 */
 	@Override
 	public void stop(final BundleContext context) throws Exception {
+
 		plugin = null;
-		save();
 		super.stop(context);
 	}
 
 	private void save() {
-		FileManager.INSTANCE.store(getPreferenceStore());
 	}
 
 	/**

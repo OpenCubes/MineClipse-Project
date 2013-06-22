@@ -21,7 +21,7 @@ public class Executor {
 	public static final Executor INSTANCE = new Executor();
 	private File directory, exec;
 
-	private boolean isRunning;
+	private boolean isRunning = false;
 
 	private Executor() {
 	}
@@ -72,20 +72,15 @@ public class Executor {
 	 * @see #setExec(File)
 	 * @see #setDirectory(File)
 	 */
-	public void run(final IProgressMonitor monitor)
-			throws InvocationTargetException, InterruptedException {
-		isRunning = true;
+	public void run(final IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
 		Assert.isTrue(!isRunning);
+		isRunning = true;
 		Assert.isNotNull(monitor);
 		List<String> args = new ArrayList<>();
 		args.add(exec.getAbsolutePath());
 		ProcessBuilder builder = new ProcessBuilder(args);
 		builder.directory(directory);
-		Activator
-				.getDefault()
-				.getLog()
-				.log(new Status(Status.INFO, Activator.PLUGIN_ID, "Running "
-						+ exec + "\n" + builder));
+		Activator.getDefault().getLog().log(new Status(Status.INFO, Activator.PLUGIN_ID, "Running " + exec + "\n" + builder));
 		try {
 			final Process process = builder.start();
 
@@ -93,12 +88,15 @@ public class Executor {
 				@Override
 				public void run() {
 					try {
-						BufferedReader reader = new BufferedReader(
-								new InputStreamReader(process.getInputStream()));
+						BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
 						String line = "";
 						try {
-							while ((line = reader.readLine()) != null)
-								monitor.subTask("Decompiling : " + line);
+							while ((line = reader.readLine()) != null) {
+								monitor.subTask("Decompiling - Ouput: " + line);
+
+								if (monitor.isCanceled())
+									process.destroy();
+							}
 						} finally {
 							reader.close();
 						}
@@ -112,18 +110,15 @@ public class Executor {
 				@Override
 				public void run() {
 					try {
-						BufferedReader reader = new BufferedReader(
-								new InputStreamReader(process.getErrorStream()));
+						BufferedReader reader = new BufferedReader(new InputStreamReader(process.getErrorStream()));
 						String line = "";
 						try {
-							while ((line = reader.readLine()) != null)
-								Activator
-										.getDefault()
-										.getLog()
-										.log(new Status(Status.ERROR,
-												Activator.PLUGIN_ID,
-												"Execution may have failed :"
-														+ line));
+							while ((line = reader.readLine()) != null) {
+								monitor.subTask("Decompiling - Ouput: " + line);
+								if (monitor.isCanceled())
+									process.destroy();
+							}
+
 						} finally {
 							reader.close();
 						}
@@ -132,13 +127,9 @@ public class Executor {
 					}
 				}
 			}.start();
+			process.waitFor();
 		} catch (IOException e) {
-			Activator
-					.getDefault()
-					.getLog()
-					.log(new Status(Status.ERROR, Activator.PLUGIN_ID,
-							"Cannot exec " + exec + "\nBecause "
-									+ e.getMessage()));
+			Activator.getDefault().getLog().log(new Status(Status.ERROR, Activator.PLUGIN_ID, "Cannot exec " + exec + "\nBecause " + e.getMessage()));
 		}
 		isRunning = false;
 
@@ -152,7 +143,7 @@ public class Executor {
 	 * @param output
 	 *            the target directory
 	 * @param exclude
-	 *            the pattern to exclude some files, put null or empty strings
+	 *            the pattern to include some files, put null or empty strings
 	 *            to ignore
 	 * @param monitor
 	 *            the {@link IProgressMonitor} to be used for a progress manager
@@ -160,8 +151,8 @@ public class Executor {
 	 */
 	public void performCopy(final File input, final File output,
 
-	final String exclude, final IProgressMonitor monitor) {
-		isRunning = true;
+	final String include, final IProgressMonitor monitor) {
+
 		// Checking
 		Assert.isNotNull(input);
 		Assert.isNotNull(output);
@@ -170,22 +161,24 @@ public class Executor {
 		output.mkdirs();
 		Assert.isTrue(output.exists());
 		// Copy
+		isRunning = true;
 		try {
-			copyFolder(input, output, exclude, monitor);
+			copyFolder(input, output, include, monitor);
 		} catch (IOException e) {
 			throw new RuntimeException(e);
+		} finally {
+
+			isRunning = false;
 		}
-		isRunning = false;
 	}
 
 	/*
 	 * code from Mkyong.com
 	 */
 
-	private void copyFolder(final File src, final File dest,
-			final String exclude, final IProgressMonitor monitor)
-			throws IOException {
-
+	private void copyFolder(final File src, final File dest, final String include, final IProgressMonitor monitor) throws IOException {
+		if (monitor.isCanceled())
+			return;
 		if (src.isDirectory()) {
 
 			// if directory not exists, create it
@@ -197,9 +190,11 @@ public class Executor {
 
 				@Override
 				public boolean accept(final File file, final String name) {
-					if (exclude.isEmpty() || (exclude == null))
+					if ((include == null) || include.isEmpty())
 						return true;
-					return !name.matches(exclude);
+					if (name.matches(include))
+						return true;
+					return false;
 				}
 			});
 
@@ -208,7 +203,7 @@ public class Executor {
 				File srcFile = new File(src, file);
 				File destFile = new File(dest, file);
 				// recursive copy
-				copyFolder(srcFile, destFile, exclude, monitor);
+				copyFolder(srcFile, destFile, include, monitor);
 			}
 
 		} else {
