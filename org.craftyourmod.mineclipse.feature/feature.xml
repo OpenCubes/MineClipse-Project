@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="org.craftyourmod.mineclipse.feature"
+      label="Mineclipse Core"
+      version="1.0.0.qualifier">
+
+   <description>
+      Mineclipse Core
+   </description>
+
+   <copyright url="http://www.gnu.org">
+ Copyright (C) 2012 CraftYourMod
+
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
+   </copyright>
+
+   <license url="http://www.example.com/license">
+      [Enter License Description here.]
+   </license>
+
+   <url>
+      <update url="https://raw.github.com/Vinz243/MineClipse-Project/master/update-site"/>
+   </url>
+
+   <requires>
+      <import plugin="org.eclipse.ui"/>
+      <import plugin="org.eclipse.core.runtime"/>
+      <import plugin="org.eclipse.jface.text"/>
+      <import plugin="org.eclipse.core.resources" version="3.8.1" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.ui.editors" version="3.8.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.ui.ide" version="3.8.2" match="greaterOrEqual"/>
+      <import plugin="org.craftyourmod.mineclipse.core" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.ui.forms" version="3.5.200" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.jdt" version="3.8.1" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.jdt.apt.core" version="3.3.500" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.jdt.apt.ui" version="3.3.300" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.jdt.core" version="3.8.2" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.jdt.core.manipulation" version="1.5.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.jdt.debug" version="3.7.101" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.jdt.debug.ui" version="3.6.100" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.jdt.launching" version="3.6.101" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.jdt.ui" version="3.8.2" match="greaterOrEqual"/>
+   </requires>
+
+   <plugin
+         id="org.craftyourmod.mineclipse.core"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.craftyourmod.mineclipse.ui"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>

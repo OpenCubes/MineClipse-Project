@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<apis>
+	<api name="Minecraft Forge" id="minecraftforge" authors="unknow" server_name="unknow">
+		<getinfos>
+			<file input="http://files.minecraftforge.net/minecraftforge/minecraftforge-src-recommended.zip" method="http">
+			</file></getinfos></api></apis>

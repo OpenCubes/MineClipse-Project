@@ -43,7 +43,7 @@ public abstract class BaseFile {
 	 * 
 	 * @param inputs
 	 */
-	protected void setInput(final java.io.File input) {
+	public void setInput(final java.io.File input) {
 		java.io.File old = this.input;
 		this.input = input;
 		getSupport().firePropertyChange("BaseFile.input", old, input);
@@ -102,15 +102,13 @@ public abstract class BaseFile {
 		if (input == null) {
 			if (other.input != null)
 				return false;
-		} else
-			if (!input.equals(other.input))
-				return false;
+		} else if (!input.equals(other.input))
+			return false;
 		if (name == null) {
 			if (other.name != null)
 				return false;
-		} else
-			if (!name.equals(other.name))
-				return false;
+		} else if (!name.equals(other.name))
+			return false;
 		if (state != other.state)
 			return false;
 		return true;
