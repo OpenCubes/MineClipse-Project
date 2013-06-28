@@ -122,7 +122,7 @@ public class NewMinecraftProjectWorkbenchWizard extends Wizard implements
 								.getWorkingDirectory(), "/files/srcs/bin_"
 								+ source.getId() + "/bin");
 						MineclipseCore.INSTANCE.performCopy(inRs, rs,
-								"[a-zA-Z0-9\\s_]+(.(png|gif|txt|lang))?",
+								"[a-zA-Z0-9\\s_]+(.(png|gif|txt|lang|bin))?",
 								new SubProgressMonitor(monitor, -1));
 
 						IProjectDescription projectDescription = project
