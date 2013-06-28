@@ -17,13 +17,13 @@ import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Status;
 
-public class Executor {
-	public static final Executor INSTANCE = new Executor();
+public class MineclipseCore {
+	public static final MineclipseCore INSTANCE = new MineclipseCore();
 	private File directory, exec;
 
 	private boolean isRunning = false;
 
-	private Executor() {
+	private MineclipseCore() {
 	}
 
 	/**
@@ -32,6 +32,22 @@ public class Executor {
 	 */
 	public File getDirectory() {
 		return directory;
+	}
+
+	public void overwrite(final File oldPath, final File newPath,
+			final IProgressMonitor monitor) {
+		Assert.isTrue(!isRunning, "An instance is already running");
+		Assert.isNotNull(oldPath);
+		Assert.isNotNull(newPath);
+		isRunning = true;
+		try {
+			copyFolder(oldPath, newPath, "", monitor);
+		} catch (IOException e) {
+			isRunning = false;
+			throw new RuntimeException(e);
+		}
+
+		isRunning = false;
 	}
 
 	/**
@@ -72,7 +88,8 @@ public class Executor {
 	 * @see #setExec(File)
 	 * @see #setDirectory(File)
 	 */
-	public void run(final IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
+	public void run(final IProgressMonitor monitor)
+			throws InvocationTargetException, InterruptedException {
 		Assert.isTrue(!isRunning);
 		isRunning = true;
 		Assert.isNotNull(monitor);
@@ -80,7 +97,11 @@ public class Executor {
 		args.add(exec.getAbsolutePath());
 		ProcessBuilder builder = new ProcessBuilder(args);
 		builder.directory(directory);
-		Activator.getDefault().getLog().log(new Status(Status.INFO, Activator.PLUGIN_ID, "Running " + exec + "\n" + builder));
+		Activator
+				.getDefault()
+				.getLog()
+				.log(new Status(Status.INFO, Activator.PLUGIN_ID, "Running "
+						+ exec + "\n" + builder));
 		try {
 			final Process process = builder.start();
 
@@ -88,7 +109,8 @@ public class Executor {
 				@Override
 				public void run() {
 					try {
-						BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+						BufferedReader reader = new BufferedReader(
+								new InputStreamReader(process.getInputStream()));
 						String line = "";
 						try {
 							while ((line = reader.readLine()) != null) {
@@ -110,7 +132,8 @@ public class Executor {
 				@Override
 				public void run() {
 					try {
-						BufferedReader reader = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+						BufferedReader reader = new BufferedReader(
+								new InputStreamReader(process.getErrorStream()));
 						String line = "";
 						try {
 							while ((line = reader.readLine()) != null) {
@@ -129,7 +152,12 @@ public class Executor {
 			}.start();
 			process.waitFor();
 		} catch (IOException e) {
-			Activator.getDefault().getLog().log(new Status(Status.ERROR, Activator.PLUGIN_ID, "Cannot exec " + exec + "\nBecause " + e.getMessage()));
+			Activator
+					.getDefault()
+					.getLog()
+					.log(new Status(Status.ERROR, Activator.PLUGIN_ID,
+							"Cannot exec " + exec + "\nBecause "
+									+ e.getMessage()));
 		}
 		isRunning = false;
 
@@ -176,9 +204,14 @@ public class Executor {
 	 * code from Mkyong.com
 	 */
 
-	private void copyFolder(final File src, final File dest, final String include, final IProgressMonitor monitor) throws IOException {
-		if (monitor.isCanceled())
-			return;
+	private void copyFolder(final File src, final File dest,
+			final String include, final IProgressMonitor monitor)
+			throws IOException {
+		try {
+			if (monitor.isCanceled())
+				return;
+		} catch (Exception e) {
+		}
 		if (src.isDirectory()) {
 
 			// if directory not exists, create it

@@ -2,7 +2,7 @@ package org.craftyourmod.mineclipse.core.filemanager;
 
 import java.io.File;
 
-import org.craftyourmod.mineclipse.core.Executor;
+import org.craftyourmod.mineclipse.core.MineclipseCore;
 import org.eclipse.core.runtime.IProgressMonitor;
 
 public class SourceFile extends BaseFile {
@@ -14,9 +14,9 @@ public class SourceFile extends BaseFile {
 	}
 
 	public static BaseFile create(final File mcpPath, final BinaryFile bin, final IProgressMonitor monitor, final File target, final String name) {
-		Executor.INSTANCE.performCopy(new File(mcpPath, "/src/minecraft"), new File(target, "/src"), "", monitor);
+		MineclipseCore.INSTANCE.performCopy(new File(mcpPath, "/src/minecraft"), new File(target, "/src"), "", monitor);
 
-		Executor.INSTANCE.performCopy(new File(mcpPath, "/temp/bin/minecraft"), new File(target, "/bin"), "", monitor);
+		MineclipseCore.INSTANCE.performCopy(new File(mcpPath, "/temp/bin/minecraft"), new File(target, "/bin"), "", monitor);
 		return new SourceFile(target, name);
 
 	}

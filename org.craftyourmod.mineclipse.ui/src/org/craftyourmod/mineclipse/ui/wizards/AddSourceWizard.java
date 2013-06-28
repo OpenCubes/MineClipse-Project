@@ -3,7 +3,7 @@ package org.craftyourmod.mineclipse.ui.wizards;
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 
-import org.craftyourmod.mineclipse.core.Executor;
+import org.craftyourmod.mineclipse.core.MineclipseCore;
 import org.craftyourmod.mineclipse.core.Util;
 import org.craftyourmod.mineclipse.core.filemanager.BinaryFile;
 import org.craftyourmod.mineclipse.core.filemanager.FileManager;
@@ -51,13 +51,13 @@ public class AddSourceWizard extends Wizard {
 
 						new File(System.getProperty("user.home"), "/.mineclipse/mcp/" + string).mkdirs();
 					}
-					Executor.INSTANCE.performCopy(new File(System.getenv("APPDATA"), "/.minecraft/bin"), new File(new File(System.getProperty("user.home")), "/.mineclipse/mcp/jars/bin"), "", monitor);
-					Executor.INSTANCE.setDirectory(new File(System.getProperty("user.home"), "/.mineclipse/mcp/"));
-					Executor.INSTANCE.setExec((new File(System.getProperty("user.home"), "/.mineclipse/mcp/decompile.bat")));
+					MineclipseCore.INSTANCE.performCopy(new File(System.getenv("APPDATA"), "/.minecraft/bin"), new File(new File(System.getProperty("user.home")), "/.mineclipse/mcp/jars/bin"), "", monitor);
+					MineclipseCore.INSTANCE.setDirectory(new File(System.getProperty("user.home"), "/.mineclipse/mcp/"));
+					MineclipseCore.INSTANCE.setExec((new File(System.getProperty("user.home"), "/.mineclipse/mcp/decompile.bat")));
 				}
 				if (!justCopy)
 					try {
-						Executor.INSTANCE.run(monitor);
+						MineclipseCore.INSTANCE.run(monitor);
 						new File(System.getProperty("user.home"), "/.mineclipse/files/srcs/bin_" + binary.getId()).mkdirs();
 
 					} catch (InvocationTargetException | InterruptedException e) {

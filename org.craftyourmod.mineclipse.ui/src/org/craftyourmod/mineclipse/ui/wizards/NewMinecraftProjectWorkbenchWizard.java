@@ -5,7 +5,7 @@ import java.io.FileFilter;
 import java.lang.reflect.InvocationTargetException;
 import java.net.MalformedURLException;
 
-import org.craftyourmod.mineclipse.core.Executor;
+import org.craftyourmod.mineclipse.core.MineclipseCore;
 import org.craftyourmod.mineclipse.core.Util;
 import org.craftyourmod.mineclipse.core.filemanager.FileManager;
 import org.craftyourmod.mineclipse.core.filemanager.SourceFile;
@@ -109,11 +109,10 @@ public class NewMinecraftProjectWorkbenchWizard extends Wizard implements
 						final File input = new File(Activator
 								.getWorkingDirectory(), "/files/srcs/bin_"
 								+ source.getId() + "/src");
-						Executor.INSTANCE.performCopy(input, f, "",
+						MineclipseCore.INSTANCE.performCopy(input, f, "",
 								new SubProgressMonitor(monitor, -1));
 
-						final Path rsPath = new Path(
-								"resources");
+						final Path rsPath = new Path("resources");
 						IFolder rscolder = project.getFolder(rsPath);
 						rscolder.create(true, true, new SubProgressMonitor(
 								monitor, -1));
@@ -122,7 +121,7 @@ public class NewMinecraftProjectWorkbenchWizard extends Wizard implements
 						final File inRs = new File(Activator
 								.getWorkingDirectory(), "/files/srcs/bin_"
 								+ source.getId() + "/bin");
-						Executor.INSTANCE.performCopy(inRs, rs,
+						MineclipseCore.INSTANCE.performCopy(inRs, rs,
 								"[a-zA-Z0-9\\s]+(.(png|gif|txt|lang))?",
 								new SubProgressMonitor(monitor, -1));
 
@@ -184,9 +183,9 @@ public class NewMinecraftProjectWorkbenchWizard extends Wizard implements
 								"/bin/jinput.jar").getAbsolutePath()), null,
 								null);
 						newCp[6] = JavaCore.newSourceEntry(project
-								.getFullPath().append(rsPath)
-								.makeAbsolute(), null, new IPath[] {}, project
-								.getFullPath().append("rsbin").makeAbsolute(),
+								.getFullPath().append(rsPath).makeAbsolute(),
+								null, new IPath[] {}, project.getFullPath()
+										.append("rsbin").makeAbsolute(),
 								new IClasspathAttribute[] {});
 
 						File libDir = new File(Activator.getWorkingDirectory(),
@@ -231,17 +230,9 @@ public class NewMinecraftProjectWorkbenchWizard extends Wizard implements
 			});
 		} catch (InvocationTargetException | InterruptedException e) {
 
-			setStatus(Activator
-					.error("Error while creating project: "
-							+ e.getClass().getName()
-							+ ((e.getLocalizedMessage() != null) ? (": " + e
-									.getLocalizedMessage())
-									: (e.getCause() != null) ? e.getCause()
-											.getLocalizedMessage() != null ? ": "
-											+ e.getCause()
-													.getLocalizedMessage()
-											: ""
-											: ""), e));
+			setStatus(Activator.error(
+					"Error while creating project: "
+							+ Util.computeDescription(e), e));
 			return false;
 		}
 		return true;

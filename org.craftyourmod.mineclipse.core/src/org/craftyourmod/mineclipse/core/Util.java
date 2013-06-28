@@ -31,13 +31,22 @@ public class Util {
 			for (File f : files)
 				if (f.isDirectory())
 					deleteFolder(f);
-				else f.delete();
+				else
+					f.delete();
 		folder.delete();
 	}
 
 	public static File getMinecraftWokingDirectory() {
 		return new File(System.getenv("APPDATA"), "/.minecraft/");
 
+	}
+
+	public static String computeDescription(final Throwable e) {
+		return e.getClass().getName()
+				+ ((e.getLocalizedMessage() != null) ? (": " + e
+						.getLocalizedMessage()) : (e.getCause() != null) ? e
+						.getCause().getLocalizedMessage() != null ? ": "
+						+ e.getCause().getLocalizedMessage() : "" : "");
 	}
 
 }

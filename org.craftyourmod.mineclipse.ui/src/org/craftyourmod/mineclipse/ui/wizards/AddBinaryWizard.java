@@ -6,7 +6,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import org.craftyourmod.mineclipse.core.Executor;
+import org.craftyourmod.mineclipse.core.MineclipseCore;
 import org.craftyourmod.mineclipse.core.filemanager.BinaryFile;
 import org.craftyourmod.mineclipse.core.filemanager.FileManager;
 import org.craftyourmod.mineclipse.core.filemanager.SourceFile;
@@ -71,7 +71,7 @@ public class AddBinaryWizard extends Wizard {
 						}
 					else
 						if (file) {
-							Executor.INSTANCE.performCopy(new File(path).getParentFile(), targetDir, "minecraft\\.jar", monitor);
+							MineclipseCore.INSTANCE.performCopy(new File(path).getParentFile(), targetDir, "minecraft\\.jar", monitor);
 							new File(targetDir, new File(path).getName()).renameTo(new File(targetDir, "bin_" + source.getId() + ".jar"));
 						}
 					FileManager.INSTANCE.addBin(BinaryFile.create(new File(targetDir, "bin_" + source.getId() + ".jar"), name));

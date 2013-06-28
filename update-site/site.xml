@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature url="features/org.craftyourmod.mineclipse.feature_1.0.0.201306281146.jar" id="org.craftyourmod.mineclipse.feature" version="1.0.0.201306281146" os="win32">
+      <category name="mineclipse"/>
+   </feature>
+   <category-def name="mineclipse" label="Mineclipse"/>
+</site>
