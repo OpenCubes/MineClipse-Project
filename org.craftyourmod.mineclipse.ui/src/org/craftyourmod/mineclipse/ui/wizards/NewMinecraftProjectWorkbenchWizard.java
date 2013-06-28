@@ -160,11 +160,16 @@ public class NewMinecraftProjectWorkbenchWizard extends Wizard implements
 												.getMinecraftWokingDirectory(),
 												"/bin/natives")
 												.getAbsolutePath());
-						newCp[1] = JavaCore.newSourceEntry(nmcPath, null,
-								new IPath[] {},
-								project.getFullPath().append("minecraftbin")
-										.makeAbsolute(),
-								new IClasspathAttribute[] { attr });
+						newCp[1] = JavaCore
+								.newSourceEntry(
+										nmcPath,
+										null,
+										new IPath[] { new Path(
+												"org/bouncycastle/**") },
+										project.getFullPath()
+												.append("minecraftbin")
+												.makeAbsolute(),
+										new IClasspathAttribute[] { attr });
 						newCp[2] = JavaCore.newSourceEntry(nsrcPath, null,
 								new IPath[] {},
 								project.getFullPath().append("srcbin")

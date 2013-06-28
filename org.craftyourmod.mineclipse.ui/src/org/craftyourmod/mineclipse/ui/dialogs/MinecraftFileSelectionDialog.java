@@ -113,7 +113,7 @@ public class MinecraftFileSelectionDialog extends FilteredItemsSelectionDialog {
 		return new ItemsFilter() {
 			@Override
 			public boolean matchItem(final Object item) {
-				return matches(item.toString());
+				return matches(((File) item).getName());
 			}
 
 			@Override
