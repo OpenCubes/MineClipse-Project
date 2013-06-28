@@ -18,11 +18,11 @@
    <extension
          point="org.eclipse.ui.newWizards">
       <category
-            id="org.craftyourmod.mineclipse.ui.category1"
+            id="org.craftyourmod.mineclipse.ui.mmd"
             name="Minecraft Mod Developement">
       </category>
       <wizard
-            category="Minecraft Mod Developement"
+            category="org.craftyourmod.mineclipse.ui.mmd"
             class="org.craftyourmod.mineclipse.ui.wizards.NewMinecraftProjectWorkbenchWizard"
             icon="icons/new_pj.gif"
             id="org.craftyourmod.mineclipse.ui.wizard2"
@@ -30,7 +30,7 @@
             project="true">
       </wizard>
       <wizard
-            category="Minecraft Mod Developement"
+            category="org.craftyourmod.mineclipse.ui.mmd"
             class="org.craftyourmod.mineclipse.ui.wizards.OverwriteWizard"
             id="org.craftyourmod.mineclipse.ui.wizard1"
             name="Overwrite wizard"
