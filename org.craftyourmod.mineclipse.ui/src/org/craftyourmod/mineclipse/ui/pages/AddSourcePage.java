@@ -31,6 +31,21 @@ public class AddSourcePage extends WizardPage {
 			Display.getDefault());
 	private Button btnJustCopy;
 
+	public FormToolkit getFormToolkit() {
+		return formToolkit;
+	}
+
+	public Button getBtnUseForge() {
+		return btnUseForge;
+	}
+
+	public Button getBtnUseDefaultMcp() {
+		return btnUseDefaultMcp;
+	}
+
+	private Button btnUseForge;
+	private Button btnUseDefaultMcp;
+
 	/**
 	 * Create the wizard.
 	 */
@@ -154,6 +169,17 @@ public class AddSourcePage extends WizardPage {
 		btnJustCopy.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false,
 				false, 2, 1));
 		btnJustCopy.setText(Messages.AddSourcePage_btnJustCopy_text_2);
+		new Label(container, SWT.NONE);
+
+		btnUseForge = new Button(container, SWT.RADIO);
+		btnUseForge.setSelection(true);
+		btnUseForge.setText(Messages.AddSourcePage_btnUseForge_text);
+		new Label(container, SWT.NONE);
+		new Label(container, SWT.NONE);
+
+		btnUseDefaultMcp = new Button(container, SWT.RADIO);
+		btnUseDefaultMcp.setText(Messages.AddSourcePage_btnUseDefaultMcp_text);
+		new Label(container, SWT.NONE);
 		btnDefault.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(final SelectionEvent e) {

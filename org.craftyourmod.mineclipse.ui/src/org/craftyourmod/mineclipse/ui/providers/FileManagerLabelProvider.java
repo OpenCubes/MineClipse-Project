@@ -5,12 +5,17 @@ import java.io.File;
 import org.craftyourmod.mineclipse.core.filemanager.BaseFile;
 import org.craftyourmod.mineclipse.core.filemanager.BinaryFile;
 import org.craftyourmod.mineclipse.core.filemanager.SourceFile;
+import org.eclipse.jface.viewers.CellLabelProvider;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ILabelProviderListener;
+import org.eclipse.jface.viewers.ITableColorProvider;
+import org.eclipse.jface.viewers.ViewerCell;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.wb.swt.ResourceManager;
 
-public class FileManagerLabelProvider implements ILabelProvider {
+public class FileManagerLabelProvider extends CellLabelProvider implements
+		ILabelProvider, ITableColorProvider {
 
 	@Override
 	public void addListener(final ILabelProviderListener listener) {
@@ -54,6 +59,24 @@ public class FileManagerLabelProvider implements ILabelProvider {
 		if (element instanceof File)
 			return ((File) element).getName();
 		return "Unknow";
+	}
+
+	@Override
+	public void update(final ViewerCell cell) {
+		cell.setText(getText(cell.getElement()));
+		cell.setImage(getImage(cell.getElement()));
+	}
+
+	@Override
+	public Color getForeground(final Object element, final int columnIndex) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Color getBackground(final Object element, final int columnIndex) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

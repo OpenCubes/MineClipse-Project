@@ -6,6 +6,8 @@ import org.craftyourmod.mineclipse.core.filemanager.SourceFile;
 import org.craftyourmod.mineclipse.ui.Messages;
 import org.craftyourmod.mineclipse.ui.views.FileManagerView;
 import org.eclipse.jface.action.Action;
+import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.ui.actions.ActionContext;
 import org.eclipse.wb.swt.ResourceManager;
 
 public class RemoveElementAction extends Action {
@@ -13,6 +15,7 @@ public class RemoveElementAction extends Action {
 
 	public RemoveElementAction(final FileManagerView fileManagerView) {
 		this.fileManagerView = fileManagerView;
+		setText("Remove");
 		setToolTipText(Messages.FileManagerView_remElementAction_toolTipText);
 		setImageDescriptor(ResourceManager
 				.getPluginImageDescriptor("org.craftyourmod.mineclipse.ui",
@@ -34,6 +37,24 @@ public class RemoveElementAction extends Action {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	public boolean isAvailable(final ActionContext context) {
+		if (context.getSelection() instanceof IStructuredSelection) {
+			IStructuredSelection s = (IStructuredSelection) context
+					.getSelection();
+			Object o = s.getFirstElement();
+			try {
+				if (o instanceof BinaryFile)
+					return true;
+				else if (o instanceof SourceFile)
+					return true;
+			} catch (Exception e) {
+				e.printStackTrace();
+				return false;
+			}
+		}
+		return false;
 	}
 
 }

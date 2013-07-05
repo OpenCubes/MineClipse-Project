@@ -1,0 +1,1 @@
+This package contains modding templates for new mod classes using JET

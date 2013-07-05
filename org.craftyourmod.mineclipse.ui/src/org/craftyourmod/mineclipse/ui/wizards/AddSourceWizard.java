@@ -1,8 +1,13 @@
 package org.craftyourmod.mineclipse.ui.wizards;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.net.URL;
 
+import org.apache.commons.codec.digest.DigestUtils;
+import org.craftyourmod.mineclipse.core.ConfigManager;
 import org.craftyourmod.mineclipse.core.MineclipseCore;
 import org.craftyourmod.mineclipse.core.Util;
 import org.craftyourmod.mineclipse.core.filemanager.BinaryFile;
@@ -33,40 +38,144 @@ public class AddSourceWizard extends Wizard {
 	public boolean performFinish() {
 		BinaryFile binary2 = null;
 		for (BinaryFile bin : FileManager.INSTANCE.getBins())
-			if (addSourcePage.getTxtInputBinary().getText().equals(bin.getName()))
+			if (addSourcePage.getTxtInputBinary().getText()
+					.equals(bin.getName()))
 				binary2 = bin;
 		final BinaryFile binary = binary2;
 		final boolean justCopy = addSourcePage.getBtnJustCopy().getSelection();
-
-		Job job = new Job("Source creation (looong task !)") {
+		final boolean forge = addSourcePage.getBtnUseForge().getSelection();
+		Job job = new Job("Source creation") {
 
 			@Override
 			protected IStatus run(final IProgressMonitor monitor) {
-				monitor.beginTask("Creating source", IProgressMonitor.UNKNOWN);
+				monitor.beginTask("Creating source", 100);
+				boolean download = false;
+				final File base = new File(Activator.getWorkingDirectory(),
+						forge ? "forge" : "mcp");
+				base.mkdirs();
+				monitor.subTask("Checking version...");
+				monitor.worked(5);
+				try {
+					String vServer = DigestUtils.md5Hex(new URL(
+							"http://files.minecraftforge.net/minecraftforge"
+									+ "/minecraftforge-src-recommended.zip")
+							.openStream());
+					String vLocal = ConfigManager.getInstance().getPreference(
+							"LocalForgeMd5", "");
+					if (!vServer.equals(vLocal))
+						download = true;
+					monitor.worked(15);
+				} catch (IOException e1) {
+					Activator
+							.getDefault()
+							.getLog()
+							.log(new Status(Status.ERROR, Activator.PLUGIN_ID,
+									"Error while running file", e1));
+					e1.printStackTrace();
+					return new Status(Status.ERROR, Activator.PLUGIN_ID,
+							"Error while running file");
+				}
+				if (download)
+					try {
+						monitor.subTask("Downloading...");
+						monitor.worked(25);
+						if (forge) {
+							Util.get(
+									new URL(
+											"http://files.minecraftforge.net/minecraftforge"
+													+ "/minecraftforge-src-recommended.zip"),
+									new File(base, "forge.zip"));
+							ConfigManager.getInstance().putPreference(
+									"LocalForgeMd5",
+									DigestUtils.md5Hex(new FileInputStream(
+											new File(base, "forge.zip"))));
+
+							monitor.worked(30);
+							Util.unZipIt(new File(base, "forge.zip")
+									.getAbsolutePath(), base.getAbsolutePath());
+
+						} else {
+							Util.get(
+									new URL(
+											"http://mcp.ocean-labs.de/files/mcp751.zip"),
+									new File(base, "mcp.zip"));
+
+							monitor.worked(30);
+							Util.unZipIt(
+									new File(base, "mcp.zip").getAbsolutePath(),
+									base.getAbsolutePath());
+						}
+
+						monitor.worked(35);
+					} catch (IOException e) {
+						Activator
+								.getDefault()
+								.getLog()
+								.log(new Status(Status.ERROR,
+										Activator.PLUGIN_ID,
+										"Error while running file", e));
+						e.printStackTrace();
+						return new Status(Status.ERROR, Activator.PLUGIN_ID,
+								"Error while running file");
+					}
+
+				monitor.worked(45);
 				monitor.subTask("Clearing dirs...");
 				if (!justCopy) {
-					String[] dirs = new String[] { "jars", "lib", "src", "reobf", "logs", "bin" };
+					String[] dirs = new String[] { "jars", "lib", "src",
+							"reobf", "logs", "bin" };
 					for (String string : dirs) {
-						Util.deleteFolder(new File(System.getProperty("user.home"), "/.mineclipse/mcp/" + string));
+						Util.deleteFolder(new File(System
+								.getProperty("user.home"), "/.mineclipse/mcp/"
+								+ string));
 
-						new File(System.getProperty("user.home"), "/.mineclipse/mcp/" + string).mkdirs();
+						new File(base, string).mkdirs();
 					}
-					MineclipseCore.INSTANCE.performCopy(new File(System.getenv("APPDATA"), "/.minecraft/bin"), new File(new File(System.getProperty("user.home")), "/.mineclipse/mcp/jars/bin"), "", monitor);
-					MineclipseCore.INSTANCE.setDirectory(new File(System.getProperty("user.home"), "/.mineclipse/mcp/"));
-					MineclipseCore.INSTANCE.setExec((new File(System.getProperty("user.home"), "/.mineclipse/mcp/decompile.bat")));
+					MineclipseCore.INSTANCE.performCopy(
+							new File(System.getenv("APPDATA"),
+									"/.minecraft/bin"), new File(base,
+									"/jars/bin"), "", monitor);
+					File exec = (new File(base,
+							forge ? "/forge/fml/install.bat" : "decompile.bat"));
+
+					MineclipseCore.INSTANCE.setDirectory(exec.getParentFile());
+					Util.removePause(exec);
+					MineclipseCore.INSTANCE.setExec(exec);
 				}
 				if (!justCopy)
 					try {
 						MineclipseCore.INSTANCE.run(monitor);
-						new File(System.getProperty("user.home"), "/.mineclipse/files/srcs/bin_" + binary.getId()).mkdirs();
+
+						monitor.worked(85);
+						if (monitor.isCanceled())
+							return Status.CANCEL_STATUS;
+						new File(Activator.getWorkingDirectory(),
+								"/.mineclipse/files/srcs/bin_" + binary.getId())
+								.mkdirs();
 
 					} catch (InvocationTargetException | InterruptedException e) {
-						Activator.getDefault().getLog().log(new Status(Status.ERROR, Activator.PLUGIN_ID, "Error while running file", e));
+						Activator
+								.getDefault()
+								.getLog()
+								.log(new Status(Status.ERROR,
+										Activator.PLUGIN_ID,
+										"Error while running file", e));
 						e.printStackTrace();
-						return new Status(Status.ERROR, Activator.PLUGIN_ID, "Error while running file", e);
+						return new Status(Status.ERROR, Activator.PLUGIN_ID,
+								"Error while running file", e);
 					}
 				monitor.subTask("Copying files");
-				FileManager.INSTANCE.addSrc((SourceFile) SourceFile.create(new File(System.getProperty("user.home"), "/.mineclipse/mcp/"), binary, monitor, new File(System.getProperty("user.home"), "/.mineclipse/files/srcs/bin_" + binary.getId()), binary.getName()));
+				FileManager.INSTANCE
+						.addSrc((SourceFile) SourceFile.create(
+								base,
+								binary,
+								monitor,
+								new File(System.getProperty("user.home"),
+										"/.mineclipse/files/srcs/bin_"
+												+ binary.getId()), binary
+										.getName()));
+
+				monitor.worked(100);
 				monitor.done();
 				return Status.OK_STATUS;
 			}

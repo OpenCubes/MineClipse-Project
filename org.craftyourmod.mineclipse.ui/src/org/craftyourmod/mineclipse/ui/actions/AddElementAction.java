@@ -7,7 +7,9 @@ import org.craftyourmod.mineclipse.ui.views.FileManagerView;
 import org.craftyourmod.mineclipse.ui.wizards.AddBinaryWizard;
 import org.craftyourmod.mineclipse.ui.wizards.AddSourceWizard;
 import org.eclipse.jface.action.Action;
+import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.WizardDialog;
+import org.eclipse.ui.actions.ActionContext;
 import org.eclipse.wb.swt.ResourceManager;
 
 public class AddElementAction extends Action {
@@ -16,14 +18,17 @@ public class AddElementAction extends Action {
 
 	public AddElementAction(final FileManagerView view) {
 		setToolTipText(Messages.AddElement_Tooltip);
+		setText("Add new Element");
 		setImageDescriptor(ResourceManager.getPluginImageDescriptor(
 				"org.craftyourmod.mineclipse.ui", "icons/newfile_wiz.gif"));
 		this.view = view;
+
 	}
 
 	@Override
 	public void run() {
 		Object s = view.getSelection().getPaths()[0].getLastSegment();
+
 		if (s.equals("BINS") || (s instanceof BinaryFile)) {
 
 			WizardDialog wiz = new WizardDialog(Activator.getDefault()
@@ -39,5 +44,20 @@ public class AddElementAction extends Action {
 			wiz.setBlockOnOpen(true);
 			wiz.open();
 		}
+	}
+
+	public boolean isAvailable(final ActionContext context) {
+
+		if (context.getSelection() instanceof IStructuredSelection) {
+			IStructuredSelection s = (IStructuredSelection) context
+					.getSelection();/*
+									 * if (s.equals("BINS") || (s instanceof
+									 * BinaryFile) || (s instanceof SourceFile)
+									 * || s.equals("SRCS"))
+									 */
+			return true;
+		}
+		return context != null;
+
 	}
 }

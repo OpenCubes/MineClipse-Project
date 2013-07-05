@@ -49,7 +49,12 @@ public class Messages extends NLS {
 	public static String AddSourcePage_btnJustCopy_text_1;
 	public static String AddSourcePage_btnDefault_text;
 	public static String AddSourcePage_lblJustCopy_text;
-	public static String AddSourcePage_btnJustCopy_text_2;;
+	public static String AddSourcePage_btnJustCopy_text_2;
+	public static String AddSourcePage_btnUseForge_text;
+	public static String AddSourcePage_btnUseDefaultMcp_text;
+	public static String FileManagerView_trclmnName_text;
+	public static String FileManagerView_trclmnId_text;
+	public static String FileManagerView_trclmnName_text_1;;
 
 	// //////////////////////////////////////////////////////////////////////////
 	//

@@ -1,0 +1,3 @@
+<%@ jet package="org.craftyourmod.mineclipse.templates.forge"
+class="SimpleBlock" imports =""
+%>

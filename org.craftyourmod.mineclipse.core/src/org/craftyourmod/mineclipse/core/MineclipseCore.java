@@ -104,7 +104,19 @@ public class MineclipseCore {
 						+ exec + "\n" + builder));
 		try {
 			final Process process = builder.start();
+			new Thread() {
+				@Override
+				public void run() {
+					{
+						while (true)
+							if (monitor.isCanceled()) {
+								process.destroy();
+								break;
+							}
+					}
 
+				}
+			}.start();
 			new Thread() {
 				@Override
 				public void run() {
@@ -115,6 +127,7 @@ public class MineclipseCore {
 						try {
 							while ((line = reader.readLine()) != null) {
 								monitor.subTask("Decompiling - Ouput: " + line);
+								System.out.println(line);
 
 								if (monitor.isCanceled())
 									process.destroy();
@@ -138,6 +151,7 @@ public class MineclipseCore {
 						try {
 							while ((line = reader.readLine()) != null) {
 								monitor.subTask("Decompiling - Ouput: " + line);
+								System.out.println(line);
 								if (monitor.isCanceled())
 									process.destroy();
 							}
@@ -158,6 +172,7 @@ public class MineclipseCore {
 					.log(new Status(Status.ERROR, Activator.PLUGIN_ID,
 							"Cannot exec " + exec + "\nBecause "
 									+ e.getMessage()));
+			isRunning = false;
 		}
 		isRunning = false;
 

@@ -26,6 +26,46 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.FilteredItemsSelectionDialog;
 
 public class MinecraftFileSelectionDialog extends FilteredItemsSelectionDialog {
+	private final class MinecraftFileLabelProvider implements ILabelProvider {
+		@Override
+		public void removeListener(final ILabelProviderListener listener) {
+		}
+
+		@Override
+		public boolean isLabelProperty(final Object element,
+				final String property) {
+			return false;
+		}
+
+		@Override
+		public void dispose() {
+		}
+
+		@Override
+		public void addListener(final ILabelProviderListener listener) {
+		}
+
+		@Override
+		public String getText(final Object element) {
+			if (element instanceof File) {
+				File f = (File) element;
+				return f.getName();
+			}
+			return "UNKNOWN";
+		}
+
+		@Override
+		public Image getImage(final Object element) {
+			if (element instanceof File) {
+				File f = (File) element;
+				Image img = PlatformUI.getWorkbench().getEditorRegistry()
+						.getImageDescriptor(f.getAbsolutePath()).createImage();
+				return img;
+			}
+			return null;
+		}
+	}
+
 	private static ArrayList<File> resources = new ArrayList<File>();
 
 	public MinecraftFileSelectionDialog(final Shell shell,
@@ -43,47 +83,11 @@ public class MinecraftFileSelectionDialog extends FilteredItemsSelectionDialog {
 			if (f.getName().endsWith(".java"))
 				resources.add(f);
 		setInitialPattern("*.*");
-		setListLabelProvider(new ILabelProvider() {
+		final MinecraftFileLabelProvider listLabelProvider = new MinecraftFileLabelProvider();
+		setListLabelProvider(listLabelProvider);
+		setDetailsLabelProvider(listLabelProvider);
+		setDialogHelpAvailable(false);
 
-			@Override
-			public void removeListener(final ILabelProviderListener listener) {
-			}
-
-			@Override
-			public boolean isLabelProperty(final Object element,
-					final String property) {
-				return false;
-			}
-
-			@Override
-			public void dispose() {
-			}
-
-			@Override
-			public void addListener(final ILabelProviderListener listener) {
-			}
-
-			@Override
-			public String getText(final Object element) {
-				if (element instanceof File) {
-					File f = (File) element;
-					return f.getName();
-				}
-				return "UNKNOWN";
-			}
-
-			@Override
-			public Image getImage(final Object element) {
-				if (element instanceof File) {
-					File f = (File) element;
-					Image img = PlatformUI.getWorkbench().getEditorRegistry()
-							.getImageDescriptor(f.getAbsolutePath())
-							.createImage();
-					return img;
-				}
-				return null;
-			}
-		});
 	}
 
 	@Override
@@ -124,8 +128,8 @@ public class MinecraftFileSelectionDialog extends FilteredItemsSelectionDialog {
 	}
 
 	@Override
-	protected Comparator getItemsComparator() {
-		return new Comparator() {
+	protected Comparator<?> getItemsComparator() {
+		return new Comparator<Object>() {
 			@Override
 			public int compare(final Object arg0, final Object arg1) {
 				return arg0.toString().compareTo(arg1.toString());

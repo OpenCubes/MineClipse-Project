@@ -54,8 +54,7 @@ public class AddBinaryWizard extends Wizard {
 					targetDir.mkdirs();
 
 					monitor.subTask("Getting jar");
-					BinaryFile bin = BinaryFile.create(new File("CHEATING"),
-							name);
+					BinaryFile bin = BinaryFile.create(new File("FAKE"), name);
 					bin.setInput(new File(targetDir, "bin_" + bin.getId()
 							+ ".jar"));
 					if (dl)
