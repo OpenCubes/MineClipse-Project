@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Templates
+Bundle-SymbolicName: org.craftyourmod.mineclipse.templates
+Bundle-Version: 1.0.0.qualifier
+Export-Package: org.craftyourmod.mineclipse.templates.forge
+Bundle-Vendor: CraftYourMod
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7

@@ -1,3 +1,26 @@
 <%@ jet package="org.craftyourmod.mineclipse.templates.forge"
-class="SimpleBlock" imports =""
+class="SimpleBlock" imports ="java.util.HashMap"
 %>
+
+<%HashMap map = (HashMap) argument;%>
+package <%=map.get("BlockPackage")%>;
+
+import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IconRegister;
+
+public class Block<%=map.get("BlockClassName")%> extends Block
+{
+
+        public GenericBlock (int id, Material material)
+        {
+                super(id, material);
+        }
+       
+        @Override
+        @SideOnly(Side.CLIENT)
+        public void registerIcons(IconRegister iconRegister) {
+            this.blockIcon = iconRegister.registerIcon("Generic:" + (this.getUnlocalizedName().substring(5)));
+        }
+
+}

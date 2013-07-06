@@ -21,7 +21,8 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.jdt.debug;bundle-version="3.7.101",
  org.eclipse.jdt.debug.ui;bundle-version="3.6.100",
  org.eclipse.jdt.launching;bundle-version="3.6.101",
- org.eclipse.jdt.ui;bundle-version="3.8.2"
+ org.eclipse.jdt.ui;bundle-version="3.8.2",
+ org.craftyourmod.mineclipse.templates;bundle-version="1.0.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
 Export-Package: org.craftyourmod.mineclipse.ui;

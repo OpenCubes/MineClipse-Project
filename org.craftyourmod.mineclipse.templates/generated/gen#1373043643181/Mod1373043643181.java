@@ -1,8 +1,5 @@
-<%@ jet package="org.craftyourmod.mineclipse.templates.forge"
-class="Mod" imports ="java.util.HashMap"%>
 
-<%HashMap map = (HashMap) argument;%>
-package <%=map.get("Package")%>;
+package net.minecraft.null;
 
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Init;
@@ -15,22 +12,21 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 
-@Mod(modid="<%=map.get("ModName")%>", name="<%=map.get("ModId")%>", version="<%=map.get("ModVersion")%>")
+@Mod(modid="mod_1373043643181", name="mod_1373043643181", version="1373043643181")
 @NetworkMod(clientSideRequired=true, serverSideRequired=false)
-public class <%=map.get("ClassName")%> { 
+public class Mod1373043643181 { 
 
         // The instance of your mod that Forge uses.
-        @Instance("<%=map.get("ModId")%>")
+        @Instance("1373043643181")
         public static Generic instance;
        
         // Says where the client and server 'proxy' code is loaded.
-        @SidedProxy(clientSide="<%=map.get("ClientProxy")%>", serverSide="<%=map.get("CommonProxy")%>")
+        @SidedProxy(clientSide="mod_1373043643181.client.ClientProxy", serverSide="mod_1373043643181.CommonProxy")
         public static CommonProxy proxy;
         
        
         @EventHandler
         public void preInit(FMLPreInitializationEvent event) {
-        
                 // Stub Method
         }
        
@@ -43,6 +39,4 @@ public class <%=map.get("ClassName")%> {
         public void postInit(FMLPostInitializationEvent event) {
                 // Stub Method
         }
-        
-        // http://www.minecraftforge.net/wiki/
 }
