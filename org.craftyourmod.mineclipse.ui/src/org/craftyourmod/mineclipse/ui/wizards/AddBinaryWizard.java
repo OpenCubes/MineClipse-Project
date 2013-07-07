@@ -46,23 +46,23 @@ public class AddBinaryWizard extends Wizard {
 				public void run(final IProgressMonitor monitor)
 						throws InvocationTargetException, InterruptedException {
 
-					monitor.beginTask("Creating Binary",
+					monitor.beginTask(Messages.AddBinaryWizard_State_BinCreation,
 							IProgressMonitor.UNKNOWN);
 					File targetDir = new File(new File(System
-							.getProperty("user.home")),
-							"/.mineclipse/files/bins/");
+							.getProperty("user.home")), //$NON-NLS-1$
+							"/.mineclipse/files/bins/"); //$NON-NLS-1$
 					targetDir.mkdirs();
 
-					monitor.subTask("Getting jar");
-					BinaryFile bin = BinaryFile.create(new File("FAKE"), name);
-					bin.setInput(new File(targetDir, "bin_" + bin.getId()
-							+ ".jar"));
+					monitor.subTask(Messages.AddBinaryWizard_State_GettingJar);
+					BinaryFile bin = BinaryFile.create(new File("FAKE"), name); //$NON-NLS-1$
+					bin.setInput(new File(targetDir, "bin_" + bin.getId() //$NON-NLS-1$
+							+ ".jar")); //$NON-NLS-1$
 					if (dl)
 						try {
 							org.craftyourmod.mineclipse.core.Util.get(new URL(
 									url),
-									new File(targetDir, "bin_" + bin.getId()
-											+ ".jar"));
+									new File(targetDir, "bin_" + bin.getId() //$NON-NLS-1$
+											+ ".jar")); //$NON-NLS-1$
 						} catch (MalformedURLException e) {
 							throw new RuntimeException(e);
 						} catch (IOException e) {
@@ -71,13 +71,13 @@ public class AddBinaryWizard extends Wizard {
 					else if (file) {
 						MineclipseCore.INSTANCE.performCopy(
 								new File(path).getParentFile(), targetDir,
-								"minecraft\\.jar", monitor);
+								"minecraft\\.jar", monitor); //$NON-NLS-1$
 						new File(targetDir, new File(path).getName())
-								.renameTo(new File(targetDir, "bin_"
-										+ bin.getId() + ".jar"));
+								.renameTo(new File(targetDir, "bin_" //$NON-NLS-1$
+										+ bin.getId() + ".jar")); //$NON-NLS-1$
 					}
 					FileManager.INSTANCE.addBin(BinaryFile.create(new File(
-							targetDir, "bin_" + bin.getId() + ".jar"), name));
+							targetDir, "bin_" + bin.getId() + ".jar"), name)); //$NON-NLS-1$ //$NON-NLS-2$
 					monitor.done();
 				}
 

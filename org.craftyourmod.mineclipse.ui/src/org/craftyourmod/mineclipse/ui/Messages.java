@@ -6,14 +6,16 @@ public class Messages extends NLS {
 	private static final String BUNDLE_NAME = "org.craftyourmod.mineclipse.ui.messages"; //$NON-NLS-1$
 	public static String AddSourcePage_errors_emptyInput;
 	public static String AddBinaryConfigWizardPage_error_nameEmpty;
+	public static String AddBinaryWizard_State_BinCreation;
+	public static String AddBinaryWizard_State_GettingJar;
 	public static String AddBinaryWizard_Title;
 	public static String AddSourcePage_binariesListSelctionDialog_message;
-	public static String AddSourcePage_errors_emptyName;
-	public static String FileManagerView_this_titleToolTip;
 	public static String FileManager_Tooltip;
 	public static String FileManager_PartName;
 	public static String AddElement_Tooltip;
+	public static String AddElementAction_Text;
 	public static String RemoveElement_Tooltip;
+	public static String RemoveElementAction_Text;
 	public static String AddBinaryWizardConfigPage_Title;
 	public static String AddBinaryWizardConfigPage_Description;
 	public static String AddBinaryConfigWizardPage_this_message;
@@ -35,6 +37,7 @@ public class Messages extends NLS {
 	public static String AddBinaryConfigWizardPage_mghprlnkChecker_text;
 	public static String AddBinaryConfigWizardPage_ctrlDecServerURL_notChecked;
 	public static String AddBinaryConfigWizardPage_textPath_text;
+	public static String AddBinaryPage_Error_InvalidURL;
 	public static String FileManagerView_remElementAction_text;
 	public static String FileManagerView_remElementAction_toolTipText;
 	public static String AddSourcePage_lblName_text;
@@ -52,9 +55,31 @@ public class Messages extends NLS {
 	public static String AddSourcePage_btnJustCopy_text_2;
 	public static String AddSourcePage_btnUseForge_text;
 	public static String AddSourcePage_btnUseDefaultMcp_text;
+	public static String AddSourcePage_Description;
 	public static String FileManagerView_trclmnName_text;
 	public static String FileManagerView_trclmnId_text;
-	public static String FileManagerView_trclmnName_text_1;;
+	public static String FileManagerView_trclmnName_text_1;
+	public static String AddSourcePage_lblNewLabel_text;
+	public static String AddSourcePage_lblNewLabel_1_text;
+	public static String AddSourcePage_lblSeparatedWithCommas_text;
+	public static String AddSourcePage_Title;
+	public static String AddSourcePage_txtYesyes_text;
+	public static String AddSourcePage_Warning_Debug;;
+
+	public static String NewMineClipseProjectPageOne_Description;
+	public static String NewMineClipseProjectPageOne_Error_DuplicateName;
+	public static String NewMineClipseProjectPageOne_Error_EmptyName;
+	public static String NewMineClipseProjectPageOne_Error_NoImput;
+	public static String NewMineClipseProjectPageOne_Input;
+	public static String NewMineClipseProjectPageOne_ProjectName;
+	public static String NewMineClipseProjectPageOne_Select;
+	public static String NewMineClipseProjectPageOne_Title;
+
+	public static String OverrideFilePage_Desc;
+	public static String OverrideFilePage_Error_NoFile;
+	public static String OverrideFilePage_File;
+	public static String OverrideFilePage_Select;
+	public static String OverrideFilePage_Title;
 
 	// //////////////////////////////////////////////////////////////////////////
 	//

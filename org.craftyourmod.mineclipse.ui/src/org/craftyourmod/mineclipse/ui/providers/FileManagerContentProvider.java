@@ -60,17 +60,8 @@ public class FileManagerContentProvider implements ITreeContentProvider {
 
 	@Override
 	public boolean hasChildren(final Object element) {
-		if (element.equals("ROOT"))
-			return true;
-		if (element.equals("BINS") || element.equals("SRCS"))
-			return true;
-		if (element instanceof BinaryFile)
-			return false;
-		if (element instanceof SourceFile)
-			return false;
-		if (element instanceof File)
-			return false;
-		return false;
+		return ((getChildren(element) != null) && (getChildren(element).length > 0));
+
 	}
 
 }

@@ -51,7 +51,7 @@ public class MinecraftFileSelectionDialog extends FilteredItemsSelectionDialog {
 				File f = (File) element;
 				return f.getName();
 			}
-			return "UNKNOWN";
+			return "UNKNOWN"; //$NON-NLS-1$
 		}
 
 		@Override
@@ -72,17 +72,17 @@ public class MinecraftFileSelectionDialog extends FilteredItemsSelectionDialog {
 			final IStructuredSelection selection) {
 		super(shell);
 		IProject pj = getSelectedProject(selection);
-		IFolder fClient = pj.getFolder("minecraft/net/minecraft/client");
+		IFolder fClient = pj.getFolder("minecraft/net/minecraft/client"); //$NON-NLS-1$
 		for (File f : fClient.getRawLocation().toFile().listFiles())
 			resources.add(f);
-		IFolder fServer = pj.getFolder("minecraft/net/minecraft/server");
+		IFolder fServer = pj.getFolder("minecraft/net/minecraft/server"); //$NON-NLS-1$
 		for (File f : fServer.getRawLocation().toFile().listFiles())
 			resources.add(f);
-		IFolder fSrc = pj.getFolder("minecraft/net/minecraft/src");
+		IFolder fSrc = pj.getFolder("minecraft/net/minecraft/src"); //$NON-NLS-1$
 		for (File f : fSrc.getRawLocation().toFile().listFiles())
-			if (f.getName().endsWith(".java"))
+			if (f.getName().endsWith(".java")) //$NON-NLS-1$
 				resources.add(f);
-		setInitialPattern("*.*");
+		setInitialPattern("*.*"); //$NON-NLS-1$
 		final MinecraftFileLabelProvider listLabelProvider = new MinecraftFileLabelProvider();
 		setListLabelProvider(listLabelProvider);
 		setDetailsLabelProvider(listLabelProvider);
@@ -95,7 +95,7 @@ public class MinecraftFileSelectionDialog extends FilteredItemsSelectionDialog {
 		return null;
 	}
 
-	private static final String DIALOG_SETTINGS = "MinecraftFileSelectionDialog";
+	private static final String DIALOG_SETTINGS = "MinecraftFileSelectionDialog"; //$NON-NLS-1$
 
 	@Override
 	protected IDialogSettings getDialogSettings() {

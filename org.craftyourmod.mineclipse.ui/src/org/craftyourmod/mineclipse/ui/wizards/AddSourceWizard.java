@@ -25,7 +25,7 @@ public class AddSourceWizard extends Wizard {
 	AddSourcePage addSourcePage;
 
 	public AddSourceWizard() {
-		setWindowTitle("Add Source");
+		setWindowTitle(Messages.AddSourceWizard_Title);
 	}
 
 	@Override
@@ -44,24 +44,27 @@ public class AddSourceWizard extends Wizard {
 		final BinaryFile binary = binary2;
 		final boolean justCopy = addSourcePage.getBtnJustCopy().getSelection();
 		final boolean forge = addSourcePage.getBtnUseForge().getSelection();
-		Job job = new Job("Source creation") {
+		final String[] outStrings = addSourcePage.getTxtYesyes().getText()
+				.split(","); //$NON-NLS-1$
+		Job job = new Job(Messages.AddSourceWizard_JobName) {
 
 			@Override
 			protected IStatus run(final IProgressMonitor monitor) {
-				monitor.beginTask("Creating source", 100);
+				monitor.beginTask(Messages.AddSourceWizard_Task_SrcCreation,
+						100);
 				boolean download = false;
 				final File base = new File(Activator.getWorkingDirectory(),
-						forge ? "forge" : "mcp");
+						forge ? "forge" : "mcp"); //$NON-NLS-1$ //$NON-NLS-2$
 				base.mkdirs();
-				monitor.subTask("Checking version...");
+				monitor.subTask(Messages.AddSourceWizard_Task_VersionCheck);
 				monitor.worked(5);
 				try {
 					String vServer = DigestUtils.md5Hex(new URL(
-							"http://files.minecraftforge.net/minecraftforge"
-									+ "/minecraftforge-src-recommended.zip")
+							"http://files.minecraftforge.net/minecraftforge" //$NON-NLS-1$
+									+ "/minecraftforge-src-recommended.zip") //$NON-NLS-1$
 							.openStream());
 					String vLocal = ConfigManager.getInstance().getPreference(
-							"LocalForgeMd5", "");
+							"LocalForgeMd5", ""); //$NON-NLS-1$ //$NON-NLS-2$
 					if (!vServer.equals(vLocal))
 						download = true;
 					monitor.worked(15);
@@ -70,39 +73,39 @@ public class AddSourceWizard extends Wizard {
 							.getDefault()
 							.getLog()
 							.log(new Status(Status.ERROR, Activator.PLUGIN_ID,
-									"Error while running file", e1));
+									Messages.AddSourceWizard_JobError, e1));
 					e1.printStackTrace();
 					return new Status(Status.ERROR, Activator.PLUGIN_ID,
-							"Error while running file");
+							Messages.AddSourceWizard_JobError);
 				}
 				if (download)
 					try {
-						monitor.subTask("Downloading...");
+						monitor.subTask(Messages.AddSourceWizard_Task_Download);
 						monitor.worked(25);
 						if (forge) {
 							Util.get(
 									new URL(
-											"http://files.minecraftforge.net/minecraftforge"
-													+ "/minecraftforge-src-recommended.zip"),
-									new File(base, "forge.zip"));
+											"http://files.minecraftforge.net/minecraftforge" //$NON-NLS-1$
+													+ "/minecraftforge-src-recommended.zip"), //$NON-NLS-1$
+									new File(base, "forge.zip")); //$NON-NLS-1$
 							ConfigManager.getInstance().putPreference(
-									"LocalForgeMd5",
+									"LocalForgeMd5", //$NON-NLS-1$
 									DigestUtils.md5Hex(new FileInputStream(
-											new File(base, "forge.zip"))));
+											new File(base, "forge.zip")))); //$NON-NLS-1$
 
 							monitor.worked(30);
-							Util.unZipIt(new File(base, "forge.zip")
+							Util.unZipIt(new File(base, "forge.zip") //$NON-NLS-1$
 									.getAbsolutePath(), base.getAbsolutePath());
 
 						} else {
 							Util.get(
 									new URL(
-											"http://mcp.ocean-labs.de/files/mcp751.zip"),
-									new File(base, "mcp.zip"));
+											"http://mcp.ocean-labs.de/files/mcp751.zip"), //$NON-NLS-1$
+									new File(base, "mcp.zip")); //$NON-NLS-1$
 
 							monitor.worked(30);
 							Util.unZipIt(
-									new File(base, "mcp.zip").getAbsolutePath(),
+									new File(base, "mcp.zip").getAbsolutePath(), //$NON-NLS-1$
 									base.getAbsolutePath());
 						}
 
@@ -113,30 +116,30 @@ public class AddSourceWizard extends Wizard {
 								.getLog()
 								.log(new Status(Status.ERROR,
 										Activator.PLUGIN_ID,
-										"Error while running file", e));
+										Messages.AddSourceWizard_JobError, e));
 						e.printStackTrace();
 						return new Status(Status.ERROR, Activator.PLUGIN_ID,
-								"Error while running file");
+								Messages.AddSourceWizard_JobError);
 					}
 
 				monitor.worked(45);
-				monitor.subTask("Clearing dirs...");
+				monitor.subTask(Messages.AddSourceWizard_Task_CleaningDir);
 				if (!justCopy) {
-					String[] dirs = new String[] { "jars", "lib", "src",
-							"reobf", "logs", "bin" };
+					String[] dirs = new String[] { "jars", "lib", "src", //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+							"reobf", "logs", "bin" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 					for (String string : dirs) {
-						Util.deleteFolder(new File(System
-								.getProperty("user.home"), "/.mineclipse/mcp/"
+						Util.deleteFolder(new File(Activator
+								.getWorkingDirectory(), "/mcp/" //$NON-NLS-1$ //$NON-NLS-2$
 								+ string));
 
 						new File(base, string).mkdirs();
 					}
 					MineclipseCore.INSTANCE.performCopy(
-							new File(System.getenv("APPDATA"),
-									"/.minecraft/bin"), new File(base,
-									"/jars/bin"), "", monitor);
+							new File(System.getenv("APPDATA"), //$NON-NLS-1$
+									"/.minecraft/bin"), new File(base, //$NON-NLS-1$
+									"/jars/bin"), "", monitor); //$NON-NLS-1$ //$NON-NLS-2$
 					File exec = (new File(base,
-							forge ? "/forge/fml/install.bat" : "decompile.bat"));
+							forge ? "/forge/fml/install.bat" : "decompile.bat")); //$NON-NLS-1$ //$NON-NLS-2$
 
 					MineclipseCore.INSTANCE.setDirectory(exec.getParentFile());
 					Util.removePause(exec);
@@ -144,13 +147,13 @@ public class AddSourceWizard extends Wizard {
 				}
 				if (!justCopy)
 					try {
-						MineclipseCore.INSTANCE.run(monitor);
+						MineclipseCore.INSTANCE.run(monitor, outStrings);
 
 						monitor.worked(85);
 						if (monitor.isCanceled())
 							return Status.CANCEL_STATUS;
 						new File(Activator.getWorkingDirectory(),
-								"/.mineclipse/files/srcs/bin_" + binary.getId())
+								"/files/srcs/bin_" + binary.getId()) //$NON-NLS-1$
 								.mkdirs();
 
 					} catch (InvocationTargetException | InterruptedException e) {
@@ -159,21 +162,18 @@ public class AddSourceWizard extends Wizard {
 								.getLog()
 								.log(new Status(Status.ERROR,
 										Activator.PLUGIN_ID,
-										"Error while running file", e));
+										Messages.AddSourceWizard_JobError, e));
 						e.printStackTrace();
 						return new Status(Status.ERROR, Activator.PLUGIN_ID,
-								"Error while running file", e);
+								Messages.AddSourceWizard_JobError, e);
 					}
-				monitor.subTask("Copying files");
-				FileManager.INSTANCE
-						.addSrc((SourceFile) SourceFile.create(
-								base,
-								binary,
-								monitor,
-								new File(System.getProperty("user.home"),
-										"/.mineclipse/files/srcs/bin_"
-												+ binary.getId()), binary
-										.getName()));
+				monitor.subTask(Messages.AddSourceWizard_Task_Copy);
+				FileManager.INSTANCE.addSrc((SourceFile) SourceFile.create(
+						new File(base, "forge/fml/mcp"), //$NON-NLS-1$
+						binary, monitor,
+						new File(Activator.getWorkingDirectory(), //$NON-NLS-1$
+								"/files/srcs/bin_" //$NON-NLS-1$
+										+ binary.getId()), binary.getName()));
 
 				monitor.worked(100);
 				monitor.done();

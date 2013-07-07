@@ -25,7 +25,7 @@ public class OverwriteWizard extends Wizard implements IWorkbenchWizard {
 	OverrideFilePage page;
 
 	public OverwriteWizard() {
-		setWindowTitle("Overwrite");
+		setWindowTitle(Messages.OverwriteWizard_Title);
 	}
 
 	@Override
@@ -39,8 +39,8 @@ public class OverwriteWizard extends Wizard implements IWorkbenchWizard {
 		try {
 			IProject pj = getSelectedProject(selection);
 			File oldFile = page.getSelectedFile();
-			File newFile = new File(pj.getFolder("src").getLocation().toFile(),
-					"net/minecraft/" + oldFile.getParentFile().getName());
+			File newFile = new File(pj.getFolder("src").getLocation().toFile(), //$NON-NLS-1$
+					"net/minecraft/" + oldFile.getParentFile().getName()); //$NON-NLS-1$
 			newFile.mkdirs();
 			MineclipseCore.INSTANCE.overwrite(oldFile, new File(newFile,
 					oldFile.getName()), null);
@@ -49,9 +49,9 @@ public class OverwriteWizard extends Wizard implements IWorkbenchWizard {
 				IClasspathEntry entry = entries[i];
 				if ((entry.getEntryKind() == IClasspathEntry.CPE_SOURCE)
 						&& entry.getPath().toFile().getName()
-								.equals("minecraft")) {
-					IPath[] exc = new IPath[] { new Path("net/minecraft/"
-							+ oldFile.getParentFile().getName() + "/"
+								.equals("minecraft")) { //$NON-NLS-1$
+					IPath[] exc = new IPath[] { new Path("net/minecraft/" //$NON-NLS-1$
+							+ oldFile.getParentFile().getName() + "/" //$NON-NLS-1$
 							+ oldFile.getName()) };
 					IPath[] newExc = new IPath[exc.length
 							+ entry.getExclusionPatterns().length];
@@ -70,7 +70,7 @@ public class OverwriteWizard extends Wizard implements IWorkbenchWizard {
 			// End
 			pj.refreshLocal(IResource.DEPTH_INFINITE, null);
 		} catch (Exception e) {
-			page.setStatus(Activator.error("Error while creating project: "
+			page.setStatus(Activator.error(Messages.OverwriteWizard_RunError
 					+ Util.computeDescription(e), e));
 			return false;
 		}

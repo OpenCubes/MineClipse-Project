@@ -44,9 +44,9 @@ public class FileManagerView extends ViewPart implements IMenuListener {
 	public FileManagerView() {
 
 		setPartName(Messages.FileManager_PartName);
-		setTitleToolTip(Messages.FileManagerView_this_titleToolTip);
+		setTitleToolTip(""); //$NON-NLS-1$
 		setTitleImage(ResourceManager.getPluginImage(
-				"org.craftyourmod.mineclipse.ui", "icons/file_manager.png"));
+				"org.craftyourmod.mineclipse.ui", "icons/file_manager.png")); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
 	/**
@@ -110,7 +110,7 @@ public class FileManagerView extends ViewPart implements IMenuListener {
 				});
 		treeViewer.setContentProvider(new FileManagerContentProvider());
 		treeViewer.setLabelProvider(new FileManagerLabelProvider());
-		treeViewer.setInput("ROOT");
+		treeViewer.setInput("ROOT"); //$NON-NLS-1$
 		treeViewer.refresh();
 		createActions();
 		initializeToolBar();
@@ -134,8 +134,8 @@ public class FileManagerView extends ViewPart implements IMenuListener {
 
 			};
 			refreshViewAction.setImageDescriptor(ResourceManager
-					.getPluginImageDescriptor("org.craftyourmod.mineclipse.ui",
-							"icons/refresh_nav.gif"));
+					.getPluginImageDescriptor("org.craftyourmod.mineclipse.ui", //$NON-NLS-1$
+							"icons/refresh_nav.gif")); //$NON-NLS-1$
 		}
 	}
 

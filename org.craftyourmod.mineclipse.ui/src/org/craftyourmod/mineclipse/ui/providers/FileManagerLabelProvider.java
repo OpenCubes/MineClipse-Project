@@ -4,18 +4,18 @@ import java.io.File;
 
 import org.craftyourmod.mineclipse.core.filemanager.BaseFile;
 import org.craftyourmod.mineclipse.core.filemanager.BinaryFile;
+import org.craftyourmod.mineclipse.core.filemanager.FileManager;
 import org.craftyourmod.mineclipse.core.filemanager.SourceFile;
-import org.eclipse.jface.viewers.CellLabelProvider;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ILabelProviderListener;
-import org.eclipse.jface.viewers.ITableColorProvider;
+import org.eclipse.jface.viewers.StyledCellLabelProvider;
+import org.eclipse.jface.viewers.StyledString;
 import org.eclipse.jface.viewers.ViewerCell;
-import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.wb.swt.ResourceManager;
 
-public class FileManagerLabelProvider extends CellLabelProvider implements
-		ILabelProvider, ITableColorProvider {
+public class FileManagerLabelProvider extends StyledCellLabelProvider implements
+		ILabelProvider {
 
 	@Override
 	public void addListener(final ILabelProviderListener listener) {
@@ -46,6 +46,7 @@ public class FileManagerLabelProvider extends CellLabelProvider implements
 		return null;
 	}
 
+	// @Override
 	@Override
 	public String getText(final Object element) {
 		if (element.equals("ROOT"))
@@ -61,22 +62,46 @@ public class FileManagerLabelProvider extends CellLabelProvider implements
 		return "Unknow";
 	}
 
+	/*
+	 * @Override public void update(final ViewerCell cell) {
+	 * cell.setText(getText(cell.getElement()));
+	 * cell.setImage(getImage(cell.getElement())); }
+	 * 
+	 * @Override public Color getForeground(final Object element, final int
+	 * columnIndex) { // TODO Auto-generated method stub return null; }
+	 * 
+	 * @Override public Color getBackground(final Object element, final int
+	 * columnIndex) { // TODO Auto-generated method stub return null; }
+	 */
+
+	public StyledString getStyledText(final Object element) {
+		if (element instanceof BaseFile) {
+			BaseFile f = (BaseFile) element;
+
+			StyledString s = new StyledString(f.getName());
+			s.append(" [" + f.getId() + "]", StyledString.DECORATIONS_STYLER);
+			s.append(" - " + f.getInput() + "", StyledString.QUALIFIER_STYLER);
+			return s;
+		}
+		StyledString s = new StyledString(getText(element));
+		if (element.equals("BINS")) {
+			int i = FileManager.INSTANCE.getBins().size();
+			s.append(" (" + i + ")", StyledString.COUNTER_STYLER);
+		}
+		if (element.equals("SRCS")) {
+			int i = FileManager.INSTANCE.getSrcs().size();
+			s.append(" (" + i + ")", StyledString.COUNTER_STYLER);
+		}
+		return s;
+	}
+
 	@Override
 	public void update(final ViewerCell cell) {
-		cell.setText(getText(cell.getElement()));
-		cell.setImage(getImage(cell.getElement()));
+		Object element = cell.getElement();
+		StyledString text = getStyledText(element);
+		cell.setText(text.toString());
+		cell.setStyleRanges(text.getStyleRanges());
+		cell.setImage(getImage(element));
+		super.update(cell);
 	}
-
-	@Override
-	public Color getForeground(final Object element, final int columnIndex) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Color getBackground(final Object element, final int columnIndex) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

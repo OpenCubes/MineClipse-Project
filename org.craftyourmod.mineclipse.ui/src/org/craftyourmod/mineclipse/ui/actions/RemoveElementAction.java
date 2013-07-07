@@ -15,11 +15,11 @@ public class RemoveElementAction extends Action {
 
 	public RemoveElementAction(final FileManagerView fileManagerView) {
 		this.fileManagerView = fileManagerView;
-		setText("Remove");
+		setText(Messages.RemoveElementAction_Text);
 		setToolTipText(Messages.FileManagerView_remElementAction_toolTipText);
 		setImageDescriptor(ResourceManager
-				.getPluginImageDescriptor("org.craftyourmod.mineclipse.ui",
-						"icons/file-delete-16x16.png"));
+				.getPluginImageDescriptor("org.craftyourmod.mineclipse.ui", //$NON-NLS-1$
+						"icons/file-delete-16x16.png")); //$NON-NLS-1$
 	}
 
 	@Override

@@ -18,9 +18,9 @@ public class AddElementAction extends Action {
 
 	public AddElementAction(final FileManagerView view) {
 		setToolTipText(Messages.AddElement_Tooltip);
-		setText("Add new Element");
+		setText(Messages.AddElementAction_Text);
 		setImageDescriptor(ResourceManager.getPluginImageDescriptor(
-				"org.craftyourmod.mineclipse.ui", "icons/newfile_wiz.gif"));
+				"org.craftyourmod.mineclipse.ui", "icons/newfile_wiz.gif")); //$NON-NLS-1$ //$NON-NLS-2$
 		this.view = view;
 
 	}
@@ -29,7 +29,7 @@ public class AddElementAction extends Action {
 	public void run() {
 		Object s = view.getSelection().getPaths()[0].getLastSegment();
 
-		if (s.equals("BINS") || (s instanceof BinaryFile)) {
+		if (s.equals("BINS") || (s instanceof BinaryFile)) { //$NON-NLS-1$
 
 			WizardDialog wiz = new WizardDialog(Activator.getDefault()
 					.getWorkbench().getActiveWorkbenchWindow().getShell(),

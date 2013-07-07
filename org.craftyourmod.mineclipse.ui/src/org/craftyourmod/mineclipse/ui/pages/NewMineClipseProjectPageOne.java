@@ -35,9 +35,9 @@ public class NewMineClipseProjectPageOne extends WizardPage {
 	 * @param wizard
 	 */
 	public NewMineClipseProjectPageOne(final NewMinecraftProjectWorkbenchWizard wizard) {
-		super("pageOne");
-		setTitle("New MineClipse Project");
-		setDescription("Create a new MineClipse Project for Minecraft modders");
+		super("pageOne"); //$NON-NLS-1$
+		setTitle(Messages.NewMineClipseProjectPageOne_Title);
+		setDescription(Messages.NewMineClipseProjectPageOne_Description);
 		this.fWizard = wizard;
 	}
 
@@ -57,7 +57,7 @@ public class NewMineClipseProjectPageOne extends WizardPage {
 
 		Label lblProjectName = new Label(container, SWT.NONE);
 		lblProjectName.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
-		lblProjectName.setText("Project Name");
+		lblProjectName.setText(Messages.NewMineClipseProjectPageOne_ProjectName);
 
 		txtName = new Text(container, SWT.BORDER);
 		txtName.addModifyListener(new ModifyListener() {
@@ -70,7 +70,7 @@ public class NewMineClipseProjectPageOne extends WizardPage {
 
 		Label lblInputSource = new Label(container, SWT.NONE);
 		lblInputSource.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
-		lblInputSource.setText("Input source");
+		lblInputSource.setText(Messages.NewMineClipseProjectPageOne_Input);
 
 		txtInput = new Text(container, SWT.BORDER);
 		txtInput.setEditable(false);
@@ -89,19 +89,19 @@ public class NewMineClipseProjectPageOne extends WizardPage {
 				validateFields();
 			}
 		});
-		btnSelect.setText("Select");
+		btnSelect.setText(Messages.NewMineClipseProjectPageOne_Select);
 
 	}
 
 	public void validateFields() {
 		if (txtName.getText().isEmpty())
-			fWizard.setStatus(new Status(Status.ERROR, Activator.PLUGIN_ID, "Name is empty"));
+			fWizard.setStatus(new Status(Status.ERROR, Activator.PLUGIN_ID, Messages.NewMineClipseProjectPageOne_Error_EmptyName));
 		else
 			if (ResourcesPlugin.getWorkspace().getRoot().getProject(txtName.getText()).exists())
-				fWizard.setStatus(new Status(Status.ERROR, Activator.PLUGIN_ID, "Name already exists"));
+				fWizard.setStatus(new Status(Status.ERROR, Activator.PLUGIN_ID, Messages.NewMineClipseProjectPageOne_Error_DuplicateName));
 			else
 				if (txtInput.getText().isEmpty())
-					fWizard.setStatus(new Status(Status.ERROR, Activator.PLUGIN_ID, "Input is empty"));
+					fWizard.setStatus(new Status(Status.ERROR, Activator.PLUGIN_ID, Messages.NewMineClipseProjectPageOne_Error_NoImput));
 				else fWizard.setStatus(new Status(Status.OK, Activator.PLUGIN_ID, null));
 		updateMessage();
 

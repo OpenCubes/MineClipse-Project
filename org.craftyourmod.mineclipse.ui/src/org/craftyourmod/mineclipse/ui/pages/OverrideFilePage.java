@@ -2,6 +2,7 @@ package org.craftyourmod.mineclipse.ui.pages;
 
 import java.io.File;
 
+import org.craftyourmod.mineclipse.ui.Messages;
 import org.craftyourmod.mineclipse.ui.dialogs.MinecraftFileSelectionDialog;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
@@ -29,9 +30,9 @@ public class OverrideFilePage extends WizardPage {
 	 * @param selection2
 	 */
 	public OverrideFilePage(final IStructuredSelection selection) {
-		super("wizardPage");
-		setTitle("Overwrite");
-		setDescription("Overwrite a file");
+		super("wizardPage"); //$NON-NLS-1$
+		setTitle(Messages.OverrideFilePage_Title);
+		setDescription(Messages.OverrideFilePage_Desc);
 		this.selection = selection;
 	}
 
@@ -50,7 +51,7 @@ public class OverrideFilePage extends WizardPage {
 		Label lblFile = new Label(container, SWT.NONE);
 		lblFile.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false,
 				1, 1));
-		lblFile.setText("File");
+		lblFile.setText(Messages.OverrideFilePage_File);
 
 		text = new Text(container, SWT.BORDER);
 		text.setEditable(false);
@@ -71,7 +72,7 @@ public class OverrideFilePage extends WizardPage {
 				validate();
 			}
 		});
-		btnSelect.setText("Select");
+		btnSelect.setText(Messages.OverrideFilePage_Select);
 	}
 
 	/**
@@ -120,7 +121,7 @@ public class OverrideFilePage extends WizardPage {
 		if (text.getText().isEmpty())
 			setStatus(new Status(IStatus.ERROR,
 					org.craftyourmod.mineclipse.ui.Activator.PLUGIN_ID,
-					"File is empty"));
+					Messages.OverrideFilePage_Error_NoFile));
 		else
 			setStatus(Status.OK_STATUS);
 

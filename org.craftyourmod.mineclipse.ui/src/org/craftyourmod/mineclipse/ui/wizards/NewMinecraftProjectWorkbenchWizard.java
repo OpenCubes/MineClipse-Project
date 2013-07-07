@@ -69,7 +69,7 @@ public class NewMinecraftProjectWorkbenchWizard extends Wizard implements
 			}
 		if (tmp == null) {
 			setStatus(org.craftyourmod.mineclipse.ui.Activator
-					.error("No SourceFile found"));
+					.error(Messages.NewMinecraftProjectWorkbenchWizard_Error_SrcMissing));
 
 			return false;
 		}
@@ -80,12 +80,12 @@ public class NewMinecraftProjectWorkbenchWizard extends Wizard implements
 				@Override
 				public void run(final IProgressMonitor monitor)
 						throws InvocationTargetException, InterruptedException {
-					monitor.beginTask("Project creation", -1);
+					monitor.beginTask(Messages.NewMinecraftProjectWorkbenchWizard_Task_ProjectCreation, -1);
 					IProject project = ResourcesPlugin.getWorkspace().getRoot()
 							.getProject(name);
 					if (project.exists())
 						throw new InvocationTargetException(
-								new RuntimeException("Project already exists"));
+								new RuntimeException(Messages.NewMinecraftProjectWorkbenchWizard_Error_DuplicateProject));
 					try {
 
 						// Beginning
@@ -97,32 +97,32 @@ public class NewMinecraftProjectWorkbenchWizard extends Wizard implements
 							throw new InterruptedException();
 
 						// Folders
-						IPath srcPath = new Path("src");
+						IPath srcPath = new Path("src"); //$NON-NLS-1$
 						IFolder srcFolder = project.getFolder(srcPath);
 						srcFolder.create(true, true, null);
-						IPath mcPath = new Path("minecraft");
+						IPath mcPath = new Path("minecraft"); //$NON-NLS-1$
 						IFolder mcFolder = project.getFolder(mcPath);
 						mcFolder.create(true, true, new SubProgressMonitor(
 								monitor, -1));
 						File f = new File(mcFolder.getLocationURI().toURL()
 								.getFile().substring(1));
 						final File input = new File(Activator
-								.getWorkingDirectory(), "/files/srcs/bin_"
-								+ source.getId() + "/src");
-						MineclipseCore.INSTANCE.performCopy(input, f, "",
+								.getWorkingDirectory(), "/files/srcs/bin_" //$NON-NLS-1$
+								+ source.getId() + "/src"); //$NON-NLS-1$
+						MineclipseCore.INSTANCE.performCopy(input, f, "", //$NON-NLS-1$
 								new SubProgressMonitor(monitor, -1));
 
-						final Path rsPath = new Path("resources");
+						final Path rsPath = new Path("resources"); //$NON-NLS-1$
 						IFolder rscolder = project.getFolder(rsPath);
 						rscolder.create(true, true, new SubProgressMonitor(
 								monitor, -1));
 						File rs = new File(rscolder.getLocationURI().toURL()
 								.getFile().substring(1));
 						final File inRs = new File(Activator
-								.getWorkingDirectory(), "/files/srcs/bin_"
-								+ source.getId() + "/bin");
+								.getWorkingDirectory(), "/files/srcs/bin_" //$NON-NLS-1$
+								+ source.getId() + "/bin"); //$NON-NLS-1$
 						MineclipseCore.INSTANCE.performCopy(inRs, rs,
-								"[a-zA-Z0-9\\s_]+(.(png|gif|txt|lang|bin))?",
+								"[a-zA-Z0-9\\s_]+(.(png|gif|txt|lang|bin))?", //$NON-NLS-1$
 								new SubProgressMonitor(monitor, -1));
 
 						IProjectDescription projectDescription = project
@@ -158,49 +158,49 @@ public class NewMinecraftProjectWorkbenchWizard extends Wizard implements
 										JavaRuntime.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY,
 										new File(Util
 												.getMinecraftWokingDirectory(),
-												"/bin/natives")
+												"/bin/natives") //$NON-NLS-1$
 												.getAbsolutePath());
 						newCp[1] = JavaCore
 								.newSourceEntry(
 										nmcPath,
 										null,
 										new IPath[] { new Path(
-												"org/bouncycastle/**") },
+												"org/bouncycastle/**") }, //$NON-NLS-1$
 										project.getFullPath()
-												.append("minecraftbin")
+												.append("minecraftbin") //$NON-NLS-1$
 												.makeAbsolute(),
 										new IClasspathAttribute[] { attr });
 						newCp[2] = JavaCore.newSourceEntry(nsrcPath, null,
 								new IPath[] {},
-								project.getFullPath().append("srcbin")
+								project.getFullPath().append("srcbin") //$NON-NLS-1$
 										.makeAbsolute(),
 								new IClasspathAttribute[] { attr });
 						newCp[3] = JavaCore.newLibraryEntry(new Path(new File(
 								Util.getMinecraftWokingDirectory(),
-								"/bin/lwjgl.jar").getAbsolutePath()), null,
+								"/bin/lwjgl.jar").getAbsolutePath()), null, //$NON-NLS-1$
 								null);
 						newCp[4] = JavaCore.newLibraryEntry(new Path(new File(
 								Util.getMinecraftWokingDirectory(),
-								"/bin/lwjgl_util.jar").getAbsolutePath()),
+								"/bin/lwjgl_util.jar").getAbsolutePath()), //$NON-NLS-1$
 								null, null);
 						newCp[5] = JavaCore.newLibraryEntry(new Path(new File(
 								Util.getMinecraftWokingDirectory(),
-								"/bin/jinput.jar").getAbsolutePath()), null,
+								"/bin/jinput.jar").getAbsolutePath()), null, //$NON-NLS-1$
 								null);
 						newCp[6] = JavaCore.newSourceEntry(project
 								.getFullPath().append(rsPath).makeAbsolute(),
 								null, new IPath[] {}, project.getFullPath()
-										.append("rsbin").makeAbsolute(),
+										.append("rsbin").makeAbsolute(), //$NON-NLS-1$
 								new IClasspathAttribute[] {});
 
 						File libDir = new File(Activator.getWorkingDirectory(),
-								"/files/libs/");
+								"/files/libs/"); //$NON-NLS-1$
 
 						File[] libs = libDir.listFiles(new FileFilter() {
 
 							@Override
 							public boolean accept(final File pathname) {
-								return pathname.getName().endsWith(".jar");
+								return pathname.getName().endsWith(".jar"); //$NON-NLS-1$
 							}
 						});
 						// Libs
@@ -236,7 +236,7 @@ public class NewMinecraftProjectWorkbenchWizard extends Wizard implements
 		} catch (InvocationTargetException | InterruptedException e) {
 
 			setStatus(Activator.error(
-					"Error while creating project: "
+					Messages.NewMinecraftProjectWorkbenchWizard_RunError
 							+ Util.computeDescription(e), e));
 			return false;
 		}

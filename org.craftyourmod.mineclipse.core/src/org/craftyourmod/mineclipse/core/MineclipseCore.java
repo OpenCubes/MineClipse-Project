@@ -1,12 +1,14 @@
 package org.craftyourmod.mineclipse.core;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.lang.reflect.InvocationTargetException;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
@@ -16,6 +18,11 @@ import java.util.List;
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.ui.console.ConsolePlugin;
+import org.eclipse.ui.console.IConsole;
+import org.eclipse.ui.console.IConsoleManager;
+import org.eclipse.ui.console.MessageConsole;
+import org.eclipse.ui.console.MessageConsoleStream;
 
 public class MineclipseCore {
 	public static final MineclipseCore INSTANCE = new MineclipseCore();
@@ -83,12 +90,14 @@ public class MineclipseCore {
 	 * 
 	 * @param monitor
 	 *            the {@link IProgressMonitor}
+	 * @param writes
+	 *            just perm output
 	 * @throws InvocationTargetException
 	 * @throws InterruptedException
 	 * @see #setExec(File)
 	 * @see #setDirectory(File)
 	 */
-	public void run(final IProgressMonitor monitor)
+	public void run(final IProgressMonitor monitor, final String... writes)
 			throws InvocationTargetException, InterruptedException {
 		Assert.isTrue(!isRunning);
 		isRunning = true;
@@ -102,17 +111,34 @@ public class MineclipseCore {
 				.getLog()
 				.log(new Status(Status.INFO, Activator.PLUGIN_ID, "Running "
 						+ exec + "\n" + builder));
+		MessageConsole myConsole = findConsole("Mineclipse Source Creation");
+		final MessageConsoleStream out = myConsole.newMessageStream();
 		try {
 			final Process process = builder.start();
 			new Thread() {
 				@Override
 				public void run() {
 					{
-						while (true)
+						BufferedWriter writer = new BufferedWriter(
+								new OutputStreamWriter(
+										process.getOutputStream()));
+
+						while (true) {
+							for (String s : writes)
+								try {
+									try {
+										writer.write(s);
+										System.out.println("writing");
+									} finally {
+										writer.close();
+									}
+								} catch (IOException e) {
+								}
 							if (monitor.isCanceled()) {
 								process.destroy();
 								break;
 							}
+						}
 					}
 
 				}
@@ -128,7 +154,7 @@ public class MineclipseCore {
 							while ((line = reader.readLine()) != null) {
 								monitor.subTask("Decompiling - Ouput: " + line);
 								System.out.println(line);
-
+								out.write("\n" + line);
 								if (monitor.isCanceled())
 									process.destroy();
 							}
@@ -152,6 +178,7 @@ public class MineclipseCore {
 							while ((line = reader.readLine()) != null) {
 								monitor.subTask("Decompiling - Ouput: " + line);
 								System.out.println(line);
+								out.write("\n" + line);
 								if (monitor.isCanceled())
 									process.destroy();
 							}
@@ -176,6 +203,19 @@ public class MineclipseCore {
 		}
 		isRunning = false;
 
+	}
+
+	private static MessageConsole findConsole(final String name) {
+		ConsolePlugin plugin = ConsolePlugin.getDefault();
+		IConsoleManager conMan = plugin.getConsoleManager();
+		IConsole[] existing = conMan.getConsoles();
+		for (IConsole element : existing)
+			if (name.equals(element.getName()))
+				return (MessageConsole) element;
+		// no console found, so create a new one
+		MessageConsole myConsole = new MessageConsole(name, null);
+		conMan.addConsoles(new IConsole[] { myConsole });
+		return myConsole;
 	}
 
 	/**

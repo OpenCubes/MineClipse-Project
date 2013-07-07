@@ -43,9 +43,9 @@ public class AddBinaryPage extends WizardPage {
 	 * Create the wizard.
 	 */
 	public AddBinaryPage() {
-		super("wizardPage");
+		super("addBinPage"); //$NON-NLS-1$
 		setImageDescriptor(ResourceManager.getPluginImageDescriptor(
-				"org.craftyourmod.mineclipse.ui", "icons/baner_addbin01.gif"));
+				"org.craftyourmod.mineclipse.ui", "icons/baner_addbin01.gif")); //$NON-NLS-1$ //$NON-NLS-2$
 		setTitle(Messages.AddBinaryWizardConfigPage_Title);
 		setDescription(Messages.AddBinaryWizardConfigPage_Description);
 	}
@@ -104,8 +104,8 @@ public class AddBinaryPage extends WizardPage {
 		lblPath.setText(Messages.AddBinaryConfigWizardPage_lblPath_text);
 
 		textPath = new Text(composite, SWT.BORDER);
-		textPath.setText(new File(System.getenv("APPDATA"),
-				"/.minecraft/bin/minecraft.jar").getAbsolutePath());
+		textPath.setText(new File(System.getenv("APPDATA"), //$NON-NLS-1$
+				"/.minecraft/bin/minecraft.jar").getAbsolutePath()); //$NON-NLS-1$
 		textPath.addModifyListener(new ModifyListener() {
 			@Override
 			public void modifyText(final ModifyEvent e) {
@@ -124,7 +124,7 @@ public class AddBinaryPage extends WizardPage {
 			public void widgetSelected(final SelectionEvent e) {
 				FileDialog dialog = new FileDialog(Display.getCurrent()
 						.getActiveShell(), SWT.OPEN);
-				dialog.setFilterExtensions(new String[] { "*.jar" });
+				dialog.setFilterExtensions(new String[] { "*.jar" }); //$NON-NLS-1$
 				String result = dialog.open();
 				textPath.setText(result);
 				validate();
@@ -160,7 +160,7 @@ public class AddBinaryPage extends WizardPage {
 				| SWT.TOP);
 		ctrlDecServerURL.setImage(SWTResourceManager.getImage(
 				AddBinaryPage.class,
-				"/org/eclipse/jface/fieldassist/images/info_ovr.gif"));
+				"/org/eclipse/jface/fieldassist/images/info_ovr.gif")); //$NON-NLS-1$
 		txtServerpath.addModifyListener(new ModifyListener() {
 			@Override
 			public void modifyText(final ModifyEvent e) {
@@ -171,7 +171,7 @@ public class AddBinaryPage extends WizardPage {
 		txtServerpath.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true,
 				false, 1, 1));
 		txtServerpath
-				.setText("http://s3.amazonaws.com/MinecraftDownload/minecraft.jar");
+				.setText("http://s3.amazonaws.com/MinecraftDownload/minecraft.jar"); //$NON-NLS-1$
 
 		Button btnCheck = new Button(compositeDl, SWT.NONE);
 		btnCheck.addSelectionListener(new SelectionAdapter() {
@@ -188,7 +188,7 @@ public class AddBinaryPage extends WizardPage {
 		mghprlnkChecker.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, true,
 				false, 1, 1));
 		mghprlnkChecker.setImage(ResourceManager.getPluginImage(
-				"org.craftyourmod.mineclipse.ui", "icons/ok.gif"));
+				"org.craftyourmod.mineclipse.ui", "icons/ok.gif")); //$NON-NLS-1$ //$NON-NLS-2$
 		mghprlnkChecker.setBackground(SWTResourceManager
 				.getColor(SWT.COLOR_WIDGET_BACKGROUND));
 		formToolkit.paintBordersFor(mghprlnkChecker);
@@ -290,20 +290,20 @@ public class AddBinaryPage extends WizardPage {
 					.setText(Messages.AddBinaryConfigWizardPage_mghprlnkChecker_text);
 			setErrorMessage(null);
 			mghprlnkChecker.setImage(ResourceManager.getPluginImage(
-					"org.craftyourmod.mineclipse.ui", "icons/ok.gif"));
+					"org.craftyourmod.mineclipse.ui", "icons/ok.gif")); //$NON-NLS-1$ //$NON-NLS-2$
 			checked = true;
 
 		} catch (MalformedURLException e) {
-			mghprlnkChecker.setText("URL is not valid !");
-			setErrorMessage("URL is not valid !");
+			mghprlnkChecker.setText(Messages.AddBinaryPage_Error_InvalidURL);
+			setErrorMessage(Messages.AddBinaryPage_Error_InvalidURL);
 			mghprlnkChecker.setImage(ResourceManager.getPluginImage(
-					"org.craftyourmod.mineclipse.ui", "icons/error.gif"));
+					"org.craftyourmod.mineclipse.ui", "icons/error.gif")); //$NON-NLS-1$ //$NON-NLS-2$
 
 		} catch (IOException e) {
-			mghprlnkChecker.setText("URL is not valid !");
-			setErrorMessage("URL is not valid !");
+			mghprlnkChecker.setText(Messages.AddBinaryPage_Error_InvalidURL);
+			setErrorMessage(Messages.AddBinaryPage_Error_InvalidURL);
 			mghprlnkChecker.setImage(ResourceManager.getPluginImage(
-					"org.craftyourmod.mineclipse.ui", "icons/error.gif"));
+					"org.craftyourmod.mineclipse.ui", "icons/error.gif")); //$NON-NLS-1$ //$NON-NLS-2$
 		}
 		validate();
 
@@ -315,7 +315,7 @@ public class AddBinaryPage extends WizardPage {
 					.setDescriptionText(Messages.AddBinaryConfigWizardPage_ctrlDecServerURL_notChecked);
 			ctrlDecServerURL.setImage(SWTResourceManager.getImage(
 					AddBinaryPage.class,
-					"/org/eclipse/jface/fieldassist/images/info_ovr.gif"));
+					"/org/eclipse/jface/fieldassist/images/info_ovr.gif")); //$NON-NLS-1$
 
 			setPageComplete(false);
 			return;
