@@ -1,7 +1,31 @@
 @import
-	url(http://fonts.googleapis.com/css?family=Ubuntu:400,300,700,700italic,400italic)
-	;
+url(http://fonts.googleapis.com/css?family=Ubuntu:400,300,700,700italic,400italic);
+@font-face {
+	font-family: 'Minecraft';
+	src: url("../fonts/minecraft.ttf");
+	font-weight: normal;
+	font-style: normal;
+}
 
+html {
+	min-height: 100%;
+	overflow-x: hidden;
+}
+iframe {
+	border: none;
+	border-radius: 3px;
+	-webkit-box-shadow: 0px 0px 10px rgba(50, 50, 50, 0.75);
+	-moz-box-shadow: 0px 0px 10px rgba(50, 50, 50, 0.75);
+	-o-box-shadow: 0px 0px 10px rgba(50, 50, 50, 0.75);
+	box-shadow: 0px 0px 10px rgba(50, 50, 50, 0.75);
+}
+.links {
+	width: 800px;
+}
+footer {
+	font-size: smaller;
+	font-style: italic;
+}
 .link {
 	padding: 8px 15px;
 	-moz-border-radius: 4px;
@@ -11,17 +35,104 @@
 	-khtml-border-radius: 4px;
 	border-radius: 4px;
 	border: 0px solid #121212;
-	-moz-box-shadow: inset 5px 5px 5px rgba(0, 0, 0, 0.3);
-	-webkit-box-shadow: inset 5px 5px 5px rgba(0, 0, 0, 0.3);
-	-o-box-shadow: inset 5px 5px 5px rgba(0, 0, 0, 0.3);
-	box-shadow: inset 0px 0px 10px 5px rgba(0, 0, 0, 0.35);
+	-moz-box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.3);
+	-webkit-box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.3);
+	-o-box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.3);
+	box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.3);
 	overflow: auto;
 	overflow-y: hidden;
 	background: 8c8c8c;
 	display: inline-block;
-	max-width: 200px;
-	width: 200px;
+	max-width: 167px;
+	width: 167px;
 	text-align: center;
+}
+.header_icon {
+	width: 40px;
+	height: 40px;
+	vertical-align: center;
+	padding: 0;
+}
+td.caption {
+	font-family: "Minecraft";
+	font-size: 20px;
+	font-style: italic;
+	color: White;
+	padding-left: 25px;
+	height: 50%;
+}
+#h_table {
+	height: 65px;
+	margin: 10px;
+}
+.intro {
+	font-style: italic;
+}
+#desc {
+	margin: 50px;
+	width: 700px;
+	text-align: center;
+}
+.title {
+	font-family: "Minecraft";
+	color: White;
+	font-size: 30px;
+	padding-left: 10px;
+}
+.datagrid table {
+	border-collapse: collapse;
+	text-align: left;
+	width: 100%;
+}
+.datagrid {
+	font: normal 12px/150% Arial, Helvetica, sans-serif;
+	overflow: hidden;
+}
+.datagrid table td, .datagrid table th {
+	padding: 3px 10px;
+}
+.datagrid table tbody td {
+	color: White;
+	font-size: 12px;
+	font-weight: normal;
+}
+.datagrid table tbody td:first-child {
+	border-left: none;
+}
+.datagrid table tbody tr:last-child td {
+	border-bottom: none;
+}
+/* Make Header Sticky */
+#header_container {
+	border: 1px solid #666;
+	height: 70px;
+	left: 0;
+	position: fixed;
+	width: 100%;
+	top: 0;
+	z-index: 1000;
+	/*GRADIENT
+	 */
+	background: rgb(53,49,49); /* Old browsers */
+	background: -moz-radial-gradient(center, ellipse cover,  rgb(53,49,49) 0%, rgb(33,33,33) 87%, rgb(33,33,33) 100%); /* FF3.6+ */
+	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgb(53,49,49)), color-stop(87%,rgb(33,33,33)), color-stop(100%,rgb(33,33,33))); /* Chrome,Safari4+ */
+	background: -webkit-radial-gradient(center, ellipse cover,  rgb(53,49,49) 0%,rgb(33,33,33) 87%,rgb(33,33,33) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-radial-gradient(center, ellipse cover,  rgb(53,49,49) 0%,rgb(33,33,33) 87%,rgb(33,33,33) 100%); /* Opera 12+ */
+	background: -ms-radial-gradient(center, ellipse cover,  rgb(53,49,49) 0%,rgb(33,33,33) 87%,rgb(33,33,33) 100%); /* IE10+ */
+	background: radial-gradient(ellipse at center,  rgb(53,49,49) 0%,rgb(33,33,33) 87%,rgb(33,33,33) 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#353131', endColorstr='#212121',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+}
+#table_header {
+	border: none;
+}
+#header {
+	height: 60px;
+	margin: 0 auto;
+	padding-top: 10px;
+	width: 940px;
+	text-align: left;
+	z-index: 9;
 }
 
 .go {
@@ -33,26 +144,27 @@
 	border-radius: 5px 5px 5px 5px;
 	background: rgb(69, 72, 77); /* Old browsers */
 	background: -moz-linear-gradient(top, rgb(69, 72, 77) 0%, rgb(0, 0, 0)
-		100%);
+	100%);
 	/* FF3.6+ */
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgb(69,
-		72, 77)), color-stop(100%, rgb(0, 0, 0))); /* Chrome,Safari4+ */
+	72, 77)), color-stop(100%, rgb(0, 0, 0))); /* Chrome,Safari4+ */
 	background: -webkit-linear-gradient(top, rgb(69, 72, 77) 0%,
-		rgb(0, 0, 0) 100%); /* Chrome10+,Safari5.1+ */
+	rgb(0, 0, 0) 100%); /* Chrome10+,Safari5.1+ */
 	background: -o-linear-gradient(top, rgb(69, 72, 77) 0%, rgb(0, 0, 0)
-		100%); /* Opera 11.10+ */
+	100%); /* Opera 11.10+ */
 	background: -ms-linear-gradient(top, rgb(69, 72, 77) 0%, rgb(0, 0, 0)
-		100%); /* IE10+ */
+	100%); /* IE10+ */
 	background: linear-gradient(to bottom, rgb(69, 72, 77) 0%, rgb(0, 0, 0)
-		100%);
+	100%);
 	/* W3C */
-	filter: progid:     DXImageTransform.Microsoft.gradient(      
-	startColorstr=     '#45484d', endColorstr=     '#000000', GradientType=
-		
-		   0);
+	filter: progid :           DXImageTransform.Microsoft.gradient(
+
+	startColorstr=           '#45484d', endColorstr=           '#000000',
+	GradientType=
+
+	0);
 	/* IE6-9 */
-	box-shadow: 0px 1px 0px rgba(255, 255, 255, 0.2) inset, 0px 0px 0px 1px
-		rgba(255, 255, 255, 0.1) inset, 0px 1px 0px rgba(23, 51, 78, 0.03);
+	box-shadow: 0px 1px 0px rgba(255, 255, 255, 0.2) inset, 0px 0px 0px 1px rgba(255, 255, 255, 0.1) inset, 0px 1px 0px rgba(23, 51, 78, 0.03);
 	font-family: 'Ubuntu', sans-serif;
 	font-size: large;
 	font-weight: bold;
@@ -62,8 +174,8 @@
 }
 
 .icon {
-	width: 128px;
-	height: 128px;
+	width: 100px;
+	height: 100px;
 }
 
 .cattitle {
@@ -71,7 +183,77 @@
 	font-weight: bold;
 }
 
+.header_h {
+	color: #222222;
+}
+
+.content {
+	margin: 0 auto;
+	overflow: auto;
+	padding: 85px 0;
+	width: 940px;
+}
+
 body {
 	font-family: 'Ubuntu', sans-serif;
-	background-color: white;
+	background-color: rgb(242, 242, 242);
+	width: 800px;
+	margin: 0 auto;
 }
+.version {
+	font-family: Minecraft;
+	text-align: right;
+	padding-right: 10px;
+	vertical-align: bottom;
+	color: White;
+	width: 400px;
+	font-size: 20px;
+}
+footer {
+	padding: 10px;
+	border: 1px solid #b3b3b3;
+	-moz-border-radius-topright: 2px;
+	-webkit-border-radius-topright: 2px;
+	-o-border-radius-topright: 2px;
+	-ms-border-radius-topright: 2px;
+	-khtml-border-radius-topright: 2px;
+	border-top-right-radius: 2px;
+	-moz-border-radius-topleft: 2px;
+	-webkit-border-radius-topleft: 2px;
+	-o-border-radius-topleft: 2px;
+	-ms-border-radius-topleft: 2px;
+	-khtml-border-radius-topleft: 2px;
+	border-top-left-radius: 2px;
+	-moz-box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.3);
+	-webkit-box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.3);
+	-o-box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.3);
+	box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.3);
+}
+#dnd_method a {
+
+	pointer-events: none;
+	cursor: default;
+	opacity: 0.4;
+	filter: alpha(opacity=40); /* For IE8 and earlier */
+}
+#dnd_method {
+	/*
+	 * Will be removed with 1.0
+	 */
+	color: Grey;
+	max-width: 390px;
+	-moz-box-shadow: 10px 0px 5px -5px #9b9b9b;
+	-webkit-box-shadow: 10px 0px 5px -5px #9b9b9b;
+	-o-box-shadow: 10px 0px 5px -5px #9b9b9b;
+	box-shadow: 10px 0px 5px -5px #9b9b9b;
+	filter: progid:DXImageTransform.Microsoft.Shadow(color=#9b9b9b, Direction=0, Strength=5);
+}
+#url_method {
+	max-width: 390px;
+}.button {
+	font-family: 'Ubuntu', sans-serif;
+	text-decoration: none;
+	font-weight: bold;
+	color: Black;
+	padding: 8px;
+	position: relative;	z-index: 1;	display: block;	background: -webkit-linear-gradient(#f5f0ee, #e7ddd7);	background: -ms-linear-gradient(#f5f0ee, #e7ddd7);	background: -moz-linear-gradient(#f5f0ee, #e7ddd7);	background: linear-gradient(#f5f0ee, #e7ddd7);	border: 1px solid #c0b9b3;	border-radius: 3px;	box-shadow: inset 0px 1px #fcfbfb, 0px 1px rgba(0, 0, 0, 0.3);}

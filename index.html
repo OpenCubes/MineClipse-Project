@@ -1,46 +1,127 @@
 <!doctype html>
 <html>
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.css" />
-   <title>MineClipse</title>
+<head>
+<title>MineClipse</title>
 
-    <link rel="icon" type="image/png" id="favicon"
-          href="chrome://branding/content/icon32.png"/>
-    <link rel="stylesheet" type="text/css" media="all"
-          href="stylesheets/style.css"/>
+<link rel="icon" type="image/png" id="favicon" href="images/logo_r.png" />
+<link rel="stylesheet" type="text/css" media="all"
+	href="stylesheets/style.css" />
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+</head>
 
-  </head>
+<body>
+	<!-- BEGIN: Sticky Header -->
+	<div id="header_container">
+		<a href="https://github.com/Vinz243/MineClipse-Project/"><img
+			style="position: absolute; top: 0; right: 0; border: 0;"
+			src="https://s3.amazonaws.com/github/ribbons/forkme_right_white_ffffff.png"
+			alt="Fork me on GitHub"></a>
+		<div id="header">
+			<table class="datagrid">
+				<tr>
+					<td rowspan="2"><img class="header_icon"
+						src="images/logo_r.png"></td>
+					<td><label class="title">MineClipse</label></td>
+					
+					<td rowspan="2" class="version">current version : 0.2</td>
+				</tr>
+				<tr>
+					<td class="caption">modding has never been so easy</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	<div class="content">
+		<iframe src="http://slid.es/vinzcym/mineclipse/embed" width="800"
+			height="420" scrolling="no" frameborder="0" webkitallowfullscreen
+			mozallowfullscreen allowfullscreen> Need a modern browser
+			like Chrome or Firefox </iframe>
+		<div class="container">
+			<div id="desc">
+				<p class="intro">Tired of decompiling minecraft using MCP ?
+					Tired of scrolling a long time to found the java file your looking
+					for between the thousands of minecraft ones ? Tired of managing
+					Minecraft dependencies ? Tired of running compile.bat to test your
+					mod ?</p>
+				<p>
+					<strong> Then MineClipse is for You.</strong>
+				</p>
 
-  <body>
-    <div class="links">
-    <div class="link">
-		<img class="icon" src="images/agt_forum.gif" alt="Forum"/>
-		<br/>
-		<label class="cattitle">Community</label>
-		<p>
-			Discuss on our forum to get help by our large community
-		</p>
-		<input type="button" class="go" value="Get Helped"/>
-    </div>
-     <div class="link">
-		<img class="icon" src="images/help.gif" alt="help"/>
-		<br/>
-		<label class="cattitle">Documentation</label>
-		<p>
-			Learn how to use MineClipse and to create mod using the docs
-		</p>
-		<input type="button" class="go" value="Get Started"/>
-    </div>
-    <div class="link">
-		<img class="icon" src="images/rss.gif" alt="help"/>
-		<br/>
-		<label class="cattitle">News</label>
-		<p>
-			Be informed in real-time of new releases, new snapshots, tips and more
-		</p>
-		<input type="button" class="go" value="Get Informed"/>
-    </div>
-    </div>
-  </body>
+				<p>MineClipse is an open source eclipse plugin created to match
+					Minecraft modders's requirements, such as cleaner project, quick
+					glimpse in a view, file overrider, GUI builder or mob maker, with
+					all the avantages of a real and powerful IDE, like auto-completion,
+					quick run and syntax checker : Eclipse IDE.</p>
+			</div>
+			<table id="install">
+				<tr>
+					<td id="dnd_method">
+					<strong>Not working ! Will work with 1.0</strong>
+						<ol>
+						
+							<li>Drag this <a
+								href="http://marketplace.eclipse.org/marketplace-client-intro?mpc_install=36146"
+								title="Drag and drop into a running Eclipse Juno workspace to install Toad Extension for Eclipse"><img
+									src="http://marketplace.eclipse.org/sites/all/modules/custom/marketplace/images/installbutton.png" /></a>into
+								a running eclipse (in toolbar)
+							</li>
+							<li>Confirm wizard, accept license and wait</li>
+							<li>Restart eclipse and...</li>
+							<li>...enjoy</li>
+						</ol>
+					</td>
+					<td id="url_method">
+						<ol>
+							<li>Copy this <a
+								href="https://raw.github.com/Vinz243/MineClipse-Project/master/update-site/">URL</a></li>
+							<li>In eclipse, go on Help > Install New Software...</li>
+							<li>In the field "Work with" paste the URL</li>
+							<li>Confirm Wizard, restart eclipse and...</li>
+							<li>...enjoy</li>
+						</ol>
+						
+					</td>
+				</tr>
+			</table>
+			<div class="links">
+				<div class="link">
+					<img class="icon" src="images/gear.gif" alt="Gear" /> <br /> <label
+						class="cattitle">Features</label>
+					<p>Discover MineClipse wonderful features, what id can do...</p>
+					<a
+						href="https://github.com/Vinz243/MineClipse-Project/wiki/Features"
+						class="button">Get Ready</a>
+
+				</div>
+				<div class="link">
+					<img class="icon" src="images/agt_forum.gif" alt="Forum" /> <br />
+					<label class="cattitle">Community</label>
+					<p>Discuss on our forum to get help by our large community</p>
+					<a href="http://mineclipse.forumatic.com" class="button">Get
+						Helped</a>
+
+				</div>
+				<div class="link">
+					<img class="icon" src="images/help.gif" alt="help" /> <br /> <label
+						class="cattitle">Documentation</label>
+					<p>Learn how to use it and to create mod using the docs</p>
+					<a href="https://github.com/Vinz243/MineClipse-Project/wiki"
+						class="button">Get Started</a>
+
+				</div>
+				<div class="link">
+					<img class="icon" src="images/rss.gif" alt="help" /> <br /> <label
+						class="cattitle">News</label>
+					<p>Be informed in real-time of new releases and more</p>
+					<a href="http://mineclipse.wordpress.com/" class="button">Get
+						informed</a>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<footer>Created and maintained by CraftYourMod. MineClipse is
+		an open source program under GNU/GPL</footer>
+</body>
 </html>

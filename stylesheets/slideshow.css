@@ -1,0 +1,66 @@
+/**
+	Juizy Slideshow
+	@author: Geoffrey Crofte
+	@date: 2011-12-07
+	@from: self work http://creativejuiz.fr/trytotry
+	@license: CreativeCommons (BY)
+	
+	
+	************* Changelog *************
+	
+	** v.1.1.1 - 2012-02-27
+	- Figcaption element hidden when you take the control
+	
+	** v.1.1.0 - 2011-12-31
+	- Caption of figure (figcaption element) display improvement
+	
+	** v.1.0.0 - 2011-12-07
+	- First version
+	
+*/
+
+
+body {
+	
+}
+h1, h2 {
+	text-align:center;
+	margin-top:0;
+}
+h1 {
+	padding: 1em 0;
+	margin-left: 1.5em;
+	font-size: 2.5em;
+}
+h1 span {
+	display:block;
+	margin: 0.75em 0 0 -2em;
+	line-height: 1em;
+	font-size: 0.55em;
+}
+h1 .cursive {
+	margin: 0 0 0 -3em;
+	font-size: 1.1em;
+	line-height:0.5em;
+}
+figure { 
+	display: inline-block; 
+}
+a {
+	text-decoration: none;
+	border-bottom: 1px solid #bc9d88;
+}
+a:hover,
+a:focus {
+	border-bottom: 1px dashed #bc9d88;
+}
+.sread {
+	position: absolute;
+	left:-9999px;
+}
+.cursive {
+	font-family: 'Mr Dafoe', cursive;
+}
+.center {
+	text-align: center;
+}
