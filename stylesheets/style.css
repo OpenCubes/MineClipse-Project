@@ -27,14 +27,15 @@ footer {
 	font-style: italic;
 }
 .widget {
-position: fixed;
+	position: fixed;
 	padding: 90px 5px 25px 10px;
-    background: Black;
-    margin-left: 5px;
-    float: right;
-    opacity: 0.8;
-    border-radius: 20px;
-    
+    	background: Black;
+    	margin-left: 5px;
+    	float: right;
+    	opacity: 0.8;
+    	border-radius: 20px;
+    	left: 20px;
+    	box-shadow: 5px 5px 5px 0px rgb(101, 101, 101);
 }
 .link {
 	padding: 8px 15px;
