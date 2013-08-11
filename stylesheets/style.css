@@ -26,6 +26,16 @@ footer {
 	font-size: smaller;
 	font-style: italic;
 }
+.widget {
+position: fixed;
+	padding: 90px 5px 25px 10px;
+    background: Black;
+    margin-left: 5px;
+    float: right;
+    opacity: 0.8;
+    border-radius: 20px;
+    
+}
 .link {
 	padding: 8px 15px;
 	-moz-border-radius: 4px;
@@ -250,10 +260,22 @@ footer {
 }
 #url_method {
 	max-width: 390px;
-}.button {
+}
+.button {
 	font-family: 'Ubuntu', sans-serif;
 	text-decoration: none;
 	font-weight: bold;
 	color: Black;
 	padding: 8px;
-	position: relative;	z-index: 1;	display: block;	background: -webkit-linear-gradient(#f5f0ee, #e7ddd7);	background: -ms-linear-gradient(#f5f0ee, #e7ddd7);	background: -moz-linear-gradient(#f5f0ee, #e7ddd7);	background: linear-gradient(#f5f0ee, #e7ddd7);	border: 1px solid #c0b9b3;	border-radius: 3px;	box-shadow: inset 0px 1px #fcfbfb, 0px 1px rgba(0, 0, 0, 0.3);}
+	position: relative;
+	z-index: 1;
+	display: block;
+	background: -webkit-linear-gradient(#f5f0ee, #e7ddd7);
+	background: -ms-linear-gradient(#f5f0ee, #e7ddd7);
+	background: -moz-linear-gradient(#f5f0ee, #e7ddd7);
+	background: linear-gradient(#f5f0ee, #e7ddd7);
+	border: 1px solid #c0b9b3;
+	border-radius: 3px;
+	box-shadow: inset 0px 1px #fcfbfb, 0px 1px rgba(0, 0, 0, 0.3);
+}
+
